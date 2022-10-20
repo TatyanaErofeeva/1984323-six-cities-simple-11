@@ -5,6 +5,7 @@ type CardProps = {
 }
 
 function MainPage({cardsCount}: CardProps): JSX.Element {
+  const cards = [...(Array(cardsCount) as number[])].map((item, i) => <CardInList key={item}/>);
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
@@ -65,11 +66,7 @@ function MainPage({cardsCount}: CardProps): JSX.Element {
               </ul>
             </form>
             <div className="cities__places-list places__list tabs__content">
-              <CardInList/>
-              <CardInList/>
-              <CardInList/>
-              <CardInList/>
-              <CardInList/>
+              {cards}
             </div>
           </section>
           <div className="cities__right-section">

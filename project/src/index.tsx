@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 
 const Setting = {
-  CardsCount: 200,
+  CardsCount: 5,
 } as const;
 
 const root = ReactDOM.createRoot(
