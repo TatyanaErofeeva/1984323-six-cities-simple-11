@@ -1,21 +1,35 @@
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import { AppRoute } from '../../const';
 import MainPage from '../../pages/main-page/main-page';
 import Login from '../../pages/login';
 import Property from '../../pages/property';
 import NotFound from '../../pages/not-found';
+import { Offers } from '../../types/offer';
+import { Reviews } from '../../types/review';
 
 
 type AppCardsProps = {
-  cardsCount: number;
+  offers: Offers;
+  reviews: Reviews;
 }
-function App({ cardsCount }: AppCardsProps): JSX.Element {
+function App({offers, reviews }: AppCardsProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path = '/'>
-          <Route index element ={<MainPage cardsCount={cardsCount} />}/>
-          <Route path ='/login' element = {<Login/>} />
-          <Route path ='/offer/:id' element ={<Property/>} />
+        <Route
+          path = {AppRoute.Root}
+        >
+          <Route
+            index element ={<MainPage offers ={offers} />}
+          />
+          <Route
+            path ={AppRoute.Login}
+            element = {<Login/>}
+          />
+          <Route
+            path ={AppRoute.Property}
+            element ={<Property offers={offers} reviews={reviews}/>}
+          />
         </Route>
         <Route path = '*' element = {<NotFound/>}/>
       </Routes>
