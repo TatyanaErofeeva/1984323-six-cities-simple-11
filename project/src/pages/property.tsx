@@ -7,7 +7,7 @@ import { Offers } from '../types/offer';
 import { Reviews } from '../types/review';
 import {formatRatingToStars} from '../util';
 import { ReviewCard } from '../components/review-card';
-import {setHostProStatus} from '../components/review-card';
+import {HostProStatus} from '../components/review-card';
 import {ReviewForm} from '../components/review-form';
 
 type PropertyPageProps = {
@@ -115,7 +115,7 @@ function Property({offers, reviews}: PropertyPageProps): JSX.Element {
                   <span className="property__user-name">
                     {host.name}
                   </span>
-                  {host.isPro ? setHostProStatus() : ''}
+                  {host.isPro && <HostProStatus/>}
                 </div>
                 <div className="property__description">
                   <p className="property__text">
@@ -146,7 +146,7 @@ function Property({offers, reviews}: PropertyPageProps): JSX.Element {
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <CardsList offers = {offers} cardClassName={CardClassName.PropertyPage}/>
+            <CardsList offers = {offers} className={CardClassName.PropertyPage}/>
           </section>
         </div>
       </main>

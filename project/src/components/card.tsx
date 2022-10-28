@@ -1,3 +1,4 @@
+import { HTMLAttributes } from 'react';
 import { Offer } from '../types/offer';
 import { Link } from 'react-router-dom';
 import { generatePath } from 'react-router';
@@ -6,19 +7,18 @@ import {formatRatingToStars, ucFirstLetter} from '../util';
 
 type CardProps = {
   offer: Offer;
-  cardClassName: string;
-  onMouseOver?: () => void;
-  onMouseLeave?: () => void;
 }
+& Pick < HTMLAttributes<HTMLDivElement>, 'className'>
+& Pick < HTMLAttributes<HTMLDivElement>, 'onMouseOver' | 'onMouseLeave'>
 
-function CardInList ({offer, cardClassName,onMouseOver, onMouseLeave}: CardProps): JSX.Element {
+function CardInList ({offer, className,onMouseOver, onMouseLeave}: CardProps): JSX.Element {
   return(
     <article
       onMouseOver={onMouseOver}
       onMouseLeave={onMouseLeave}
-      className={`${cardClassName}__card place-card`}
+      className={`${className ?? ''}__card place-card`}
     >
-      <div className={`${cardClassName}__image-wrapper place-card__image-wrapper`}>
+      <div className={`${className ?? ''}__image-wrapper place-card__image-wrapper`}>
         <Link to={`offer/${offer.id}`}>
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place" />
         </Link>

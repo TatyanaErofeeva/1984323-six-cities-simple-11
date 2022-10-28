@@ -1,25 +1,30 @@
-import React from 'react';
+import React, { HTMLAttributes } from 'react';
 import CardInList from './card';
 import { Offers } from '../types/offer';
 import {CardClassName} from '../const';
+import classNames from 'classnames';
 
 type CardsProps = {
   offers: Offers;
-  cardClassName: string;
-}
+} & Pick < HTMLAttributes<HTMLDivElement>, 'className'>
 
-function CardsList({offers, cardClassName} : CardsProps) : JSX.Element{
+function CardsList({offers, className} : CardsProps) : JSX.Element{
   const [selected, setSelected] = React.useState(0);
-  const listClassName = () => cardClassName === CardClassName.MainPage ? `${cardClassName}__places-list` : 'near-places__list';
+  const a = '__places-list';
+  const b = 'near-places__list';
+
+
   return (
-    <div className={`${listClassName()} places__list tabs__content`}>
+    /*<div className={`${className === CardClassName.MainPage ? `${className}__places-list` : 'near-places__list'} places__list tabs__content`}>*/
+    <div className={`${className === CardClassName.MainPage ? classNames(`${className}`, a) : classNames(`${className ?? ''}`, b)} places__list tabs__content`}>
       {offers.map((offer) => (
         <CardInList
           key={offer.id}
           offer={offer}
-          cardClassName={cardClassName}
+          className={className}
           onMouseOver={() => {
-            if(selected !== offer.id) {setSelected(offer.id);}
+            if(selected !== offer.id)
+            {setSelected(offer.id);}
           }}
           onMouseLeave={() => setSelected(0)}
         />

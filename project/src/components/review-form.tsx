@@ -1,15 +1,15 @@
 import React from 'react';
 import {FormEvent, ChangeEvent} from 'react';
-import { ReviewFormRating } from './review-form-rating';
+import { ReviewFormRating} from './review-form-rating';
+import { MAX_STARS } from '../const';
 
 function ReviewForm(): JSX.Element{
   const [reviewForm, setReviewForm] = React.useState({rating: 0, review: '' });
-
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
   };
 
-  const handleInputTextAreaChange = (evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleFormChange = (evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const {name, value} = evt.target;
 
     setReviewForm({
@@ -20,11 +20,13 @@ function ReviewForm(): JSX.Element{
 
   const getRatingStars = () => {
     const ratingIndexes = [];
-    for (let i = 5; i > 0; i--) {
-      ratingIndexes.push(<ReviewFormRating key={i} index={i} onChange={handleInputTextAreaChange}/>);
+    for (let i = MAX_STARS; i > 0; i--) {
+      ratingIndexes.push(<ReviewFormRating key={i} index={i} onChange={handleFormChange}/>);
     }
     return ratingIndexes;
   };
+
+  const isValid = reviewForm.review || !reviewForm.rating;
 
   return (
     <form onSubmit={handleFormSubmit} className="reviews__form form" action="#" method="post">
@@ -37,7 +39,7 @@ function ReviewForm(): JSX.Element{
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        onChange={handleInputTextAreaChange}
+        onChange={handleFormChange}
       >
       </textarea>
       <div className="reviews__button-wrapper">
@@ -54,7 +56,7 @@ function ReviewForm(): JSX.Element{
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled = {!reviewForm.review || !reviewForm.rating}
+          disabled = {!isValid}
         >
           Submit
         </button>

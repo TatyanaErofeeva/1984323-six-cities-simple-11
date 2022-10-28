@@ -9,3 +9,7 @@ export enum CardClassName {
   PropertyPage = 'near-places'
 }
 
+const MAX_STARS = 5;
+
+export {MAX_STARS};
+

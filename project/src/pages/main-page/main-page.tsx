@@ -71,7 +71,7 @@ function MainPage({offers}: MainPageProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <CardsList offers = {offers} cardClassName={CardClassName.MainPage}/>
+              <CardsList offers = {offers} className={CardClassName.MainPage}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>

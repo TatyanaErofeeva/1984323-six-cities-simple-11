@@ -5,11 +5,14 @@ type ReviewFormProps = {
   review: Review;
 };
 
-const setHostProStatus = (): JSX.Element => (
-  <span className="property__user-status">
-    Pro
-  </span>
-);
+
+function HostProStatus(){
+  return(
+    <span className="property__user-status">
+      Pro
+    </span>
+  );
+}
 
 function ReviewCard({review}: ReviewFormProps): JSX.Element {
   const {
@@ -32,7 +35,7 @@ function ReviewCard({review}: ReviewFormProps): JSX.Element {
         <span className="reviews__user-name">
           {user.name}
         </span>
-        {user.isPro ? setHostProStatus() : ''}
+        {user.isPro && <HostProStatus/>}
       </div>
       <div className="reviews__info">
         <div className="reviews__rating rating">
@@ -44,10 +47,10 @@ function ReviewCard({review}: ReviewFormProps): JSX.Element {
         <p className="reviews__text">
           {comment}
         </p>
-        <time className="reviews__time" dateTime="2019-04-24">April 2019</time>
+        <time className="reviews__time" dateTime={review.date}>April 2019</time>
       </div>
     </li>
   );
 }
 
-export {ReviewCard, setHostProStatus};
+export {ReviewCard, HostProStatus};
