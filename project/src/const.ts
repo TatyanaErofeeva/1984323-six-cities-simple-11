@@ -4,7 +4,7 @@ export enum AppRoute {
   Root= '/'
 }
 
-export enum CardClassName {
+export enum CardPage {
   MainPage = 'cities',
   PropertyPage = 'near-places'
 }

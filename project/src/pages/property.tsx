@@ -2,7 +2,7 @@ import MainHeader from '../components/main-header';
 import NotFound from './not-found';
 import { useParams } from 'react-router-dom';
 import CardsList from '../components/card-list';
-import { CardClassName } from '../const';
+import { CardPage } from '../const';
 import { Offers } from '../types/offer';
 import { Reviews } from '../types/review';
 import {formatRatingToStars} from '../util';
@@ -146,7 +146,7 @@ function Property({offers, reviews}: PropertyPageProps): JSX.Element {
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <CardsList offers = {offers} className={CardClassName.PropertyPage}/>
+            <CardsList offers = {offers} className={CardPage.PropertyPage}/>
           </section>
         </div>
       </main>

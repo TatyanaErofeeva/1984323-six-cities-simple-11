@@ -2,7 +2,7 @@ import CardsList from '../../components/card-list';
 import MainHeader from '../../components/main-header';
 import { Offers } from '../../types/offer';
 import { Link } from 'react-router-dom';
-import { AppRoute, CardClassName } from '../../const';
+import { AppRoute, CardPage } from '../../const';
 
 type MainPageProps = {
   offers: Offers;
@@ -71,7 +71,7 @@ function MainPage({offers}: MainPageProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <CardsList offers = {offers} className={CardClassName.MainPage}/>
+              <CardsList offers = {offers} className={CardPage.MainPage}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>
