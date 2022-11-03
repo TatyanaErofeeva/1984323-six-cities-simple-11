@@ -12,7 +12,7 @@ type AppCardsProps = {
   offers: Offers;
   reviews: Reviews;
 }
-function App({offers, reviews }: AppCardsProps): JSX.Element {
+function App({offers, reviews}: AppCardsProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
