@@ -32,12 +32,17 @@ export const offers: Offers = [
     },
     city: {
       location: {
-        latitude: 50.846557,
-        longitude: 4.351697,
+        latitude: 52.3909553943508,
+        longitude: 4.85309666406198,
         zoom: 13,
       },
-      name:  'Brussels',
-    }
+      name:  'Amsterdam',
+    },
+    location: {
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
+      zoom: 8,
+    },
   },
   {
     id: 2,
@@ -71,12 +76,17 @@ export const offers: Offers = [
     },
     city: {
       location: {
-        latitude: 48.85661,
-        longitude: 2.351499,
+        latitude: 52.3609553943508,
+        longitude: 4.85309666406198,
         zoom: 13,
       },
-      name:  'Paris',
-    }
+      name:  'Amsterdam',
+    },
+    location: {
+      latitude: 52.3609553943508,
+      longitude: 4.85309666406198,
+      zoom: 8,
+    },
   },
   {
     id: 3,
@@ -115,12 +125,17 @@ export const offers: Offers = [
     },
     city: {
       location: {
-        latitude: 50.938361,
-        longitude: 6.959974,
+        latitude: 52.3909553943508,
+        longitude: 4.929309666406198,
         zoom: 13,
       },
-      name:  'Cologne',
-    }
+      name:  'Amsterdam',
+    },
+    location: {
+      latitude: 52.3909553943508,
+      longitude: 4.929309666406198,
+      zoom: 8,
+    },
   },
   {
     id: 4,
@@ -153,12 +168,17 @@ export const offers: Offers = [
     },
     city: {
       location: {
-        latitude: 53.550341,
-        longitude: 10.000654,
+        latitude: 52.3809553943508,
+        longitude: 4.939309666406198,
         zoom: 13,
       },
-      name:  'Hamburg',
-    }
+      name:  'Amsterdam',
+    },
+    location: {
+      latitude: 52.3809553943508,
+      longitude: 4.939309666406198,
+      zoom: 8,
+    },
   },
 ];
 

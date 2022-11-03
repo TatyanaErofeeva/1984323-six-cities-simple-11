@@ -2,7 +2,8 @@ import CardsList from '../../components/card-list';
 import MainHeader from '../../components/main-header';
 import { Offers } from '../../types/offer';
 import { Link } from 'react-router-dom';
-import { AppRoute, CardPage } from '../../const';
+import {AppRoute, CardPage} from '../../const';
+import {Map} from '../../components/map';
 
 type MainPageProps = {
   offers: Offers;
@@ -74,7 +75,7 @@ function MainPage({offers}: MainPageProps): JSX.Element {
               <CardsList offers = {offers} className={CardPage.MainPage}/>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <Map city={offers[0].city} points={offers}/>
             </div>
           </div>
         </div>

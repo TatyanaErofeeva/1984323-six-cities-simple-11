@@ -1,8 +1,21 @@
+type LocationCoordinates = {
+    latitude: number;
+    longitude: number;
+    zoom: number;
+};
+
+export type OfferCity = {
+  location: LocationCoordinates;
+  name:string;
+}
+
+
 export type Offer = {
   id: number;
   isPremium: boolean;
   cost: number;
   previewImage: string;
+  city: OfferCity;
   title:string;
   description: string;
   accommodation:string;
@@ -17,14 +30,7 @@ export type Offer = {
     isPro: boolean;
     name: string;
   };
-  city: {
-    location: {
-      latitude: number;
-      longitude: number;
-      zoom: number;
-    };
-    name: string;
-  };
+  location: LocationCoordinates;
 }
 
 export type Offers = Offer[];
