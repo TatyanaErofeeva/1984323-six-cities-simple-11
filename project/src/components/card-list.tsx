@@ -6,9 +6,10 @@ import cn from 'classnames';
 
 type CardsProps = {
   offers: Offers;
+  onPointHover?: (PointId: number|undefined) => void;
 } & Pick < HTMLAttributes<HTMLDivElement>, 'className'>
 
-function CardsList({offers, className: cardPage} : CardsProps) : JSX.Element{
+function CardsList({offers, className: cardPage, onPointHover} : CardsProps) : JSX.Element{
   const [selected, setSelected] = React.useState(0);
 
   return (
@@ -33,6 +34,7 @@ function CardsList({offers, className: cardPage} : CardsProps) : JSX.Element{
             {setSelected(offer.id);}
           }}
           onMouseLeave={() => setSelected(0)}
+          onPointHover = {onPointHover}
         />
       ))}
     </div>

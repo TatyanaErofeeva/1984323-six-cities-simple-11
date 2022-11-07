@@ -7,15 +7,16 @@ import {formatRatingToStars, ucFirstLetter} from '../util';
 
 type CardProps = {
   offer: Offer;
+  onPointHover?: (PointId?: number) => void;
 }
 & Pick < HTMLAttributes<HTMLDivElement>, 'className'>
 & Pick < HTMLAttributes<HTMLDivElement>, 'onMouseOver' | 'onMouseLeave'>
 
-function CardInList ({offer, className,onMouseOver, onMouseLeave}: CardProps): JSX.Element {
+function CardInList ({offer, className,onMouseOver, onMouseLeave, onPointHover}: CardProps): JSX.Element {
   return(
     <article
-      onMouseOver={onMouseOver}
-      onMouseLeave={onMouseLeave}
+      onMouseOver={() => onPointHover?.(offer.id)}
+      onMouseLeave={() => onPointHover?.()}
       className={`${className ?? ''}__card place-card`}
     >
       <div className={`${className ?? ''}__image-wrapper place-card__image-wrapper`}>

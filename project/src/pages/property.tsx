@@ -9,6 +9,7 @@ import {formatRatingToStars} from '../util';
 import { ReviewCard } from '../components/review-card';
 import {HostProStatus} from '../components/review-card';
 import {ReviewForm} from '../components/review-form';
+import {Map} from '../components/map';
 
 type PropertyPageProps = {
   offers: Offers;
@@ -22,6 +23,7 @@ const setPropertyStatus = (): JSX.Element => (
 );
 
 function Property({offers, reviews}: PropertyPageProps): JSX.Element {
+
   const params = useParams();
   const offer = offers.find((item) => item.id === Number(params.id));
 
@@ -141,7 +143,7 @@ function Property({offers, reviews}: PropertyPageProps): JSX.Element {
               </section>
             </div>
           </div>
-          <section className="property__map map"></section>
+          <Map classMap={CardPage.PropertyPageMap} city={offers[0].city} points={offers} selectedPointId = {offer.id}/>
         </section>
         <div className="container">
           <section className="near-places places">
