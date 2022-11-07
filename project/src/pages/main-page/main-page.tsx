@@ -12,10 +12,8 @@ type MainPageProps = {
 }
 
 function MainPage({offers}: MainPageProps): JSX.Element {
-  const [selectedOfferId, setSelectedOffer] = React.useState <number | undefined> (undefined);
-  const onPointHover = (pointId?: number) => {
-    setSelectedOffer(pointId);
-  };
+  const [selectedOfferId, setSelectedOffer] = React.useState <number | undefined>();
+
   return (
     <>
       < MainHeader/>
@@ -77,7 +75,7 @@ function MainPage({offers}: MainPageProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <CardsList offers = {offers} className={CardPage.MainPage} onPointHover={onPointHover}/>
+              <CardsList offers = {offers} className={CardPage.MainPage} setSelectedOffer={setSelectedOffer}/>
             </section>
             <div className="cities__right-section">
               <Map classMap={CardPage.MainPage} city={offers[0].city} points={offers} selectedPointId = {selectedOfferId}/>
@@ -90,3 +88,5 @@ function MainPage({offers}: MainPageProps): JSX.Element {
 }
 
 export default MainPage;
+
+
