@@ -1,24 +1,32 @@
 import {useRef, useEffect} from 'react';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { URL_MARKER_DEFAULT} from '../const';
-import useMap from '../hooks/useMap';
+import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../const';
+import useMap from '../hooks/use-map';
 import { OfferCity, Offers } from '../types/offer';
 
 
 const defaultCustomIcon = leaflet.icon({
   iconUrl: URL_MARKER_DEFAULT,
-  iconSize: [40, 40],
+  iconSize: [27, 39],
   iconAnchor: [20, 40],
+});
+
+const currentCustomIcon = leaflet.icon({
+  iconUrl: URL_MARKER_CURRENT,
+  iconSize: [27, 39],
+  iconAnchor: [20, 40]
 });
 
 
 type MapProps = {
+  classMap: string;
   city: OfferCity;
   points: Offers;
-};
+  selectedPointId: number |undefined;
+}
 
-function Map({city, points}: MapProps): JSX.Element {
+function Map({classMap, city, points, selectedPointId}: MapProps): JSX.Element {
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
@@ -31,16 +39,19 @@ function Map({city, points}: MapProps): JSX.Element {
           .marker({
             lat: location.latitude,
             lng: location.longitude
-          }, {
-            icon: defaultCustomIcon,
           })
+          .setIcon(
+            point.id === selectedPointId
+              ? currentCustomIcon
+              : defaultCustomIcon
+          )
           .addTo(map);
       });
     }
-  }, [map, points]);
+  }, [map, points, selectedPointId]);
 
   return (
-    <section className="cities__map map" ref={mapRef}></section>
+    <section className={`${classMap}__map map`} ref={mapRef}></section>
   );
 }
 

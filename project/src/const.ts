@@ -6,7 +6,8 @@ export enum AppRoute {
 
 export enum CardPage {
   MainPage = 'cities',
-  PropertyPage = 'near-places'
+  PropertyPage = 'near-places',
+  PropertyPageMap = 'property'
 }
 
 const MAX_STARS = 5;

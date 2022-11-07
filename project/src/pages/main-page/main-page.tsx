@@ -1,15 +1,18 @@
+import React from 'react';
 import CardsList from '../../components/card-list';
 import MainHeader from '../../components/main-header';
 import { Offers } from '../../types/offer';
 import { Link } from 'react-router-dom';
-import {AppRoute, CardPage} from '../../const';
 import {Map} from '../../components/map';
+import {AppRoute, CardPage } from '../../const';
+
 
 type MainPageProps = {
   offers: Offers;
 }
 
 function MainPage({offers}: MainPageProps): JSX.Element {
+  const [selectedOfferId, setSelectedOffer] = React.useState <number | undefined>();
 
   return (
     <>
@@ -72,10 +75,10 @@ function MainPage({offers}: MainPageProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <CardsList offers = {offers} className={CardPage.MainPage}/>
+              <CardsList offers = {offers} className={CardPage.MainPage} setSelectedOffer={setSelectedOffer}/>
             </section>
             <div className="cities__right-section">
-              <Map city={offers[0].city} points={offers}/>
+              <Map classMap={CardPage.MainPage} city={offers[0].city} points={offers} selectedPointId = {selectedOfferId}/>
             </div>
           </div>
         </div>
@@ -85,3 +88,5 @@ function MainPage({offers}: MainPageProps): JSX.Element {
 }
 
 export default MainPage;
+
+
