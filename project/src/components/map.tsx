@@ -27,7 +27,6 @@ type MapProps = {
 }
 
 function Map({classMap, city, points, selectedPointId}: MapProps): JSX.Element {
-
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -48,7 +47,7 @@ function Map({classMap, city, points, selectedPointId}: MapProps): JSX.Element {
           .addTo(map);
       });
     }
-  }, [map, points, selectedPointId]);
+  }, [map, points, selectedPointId, city]);
 
   return (
     <section className={`${classMap}__map map`} ref={mapRef}></section>
