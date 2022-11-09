@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import { generatePath } from 'react-router';
 import { AppRoute } from '../const';
 import {formatRatingToStars, ucFirstLetter} from '../util';
-
+import { useAppDispatch} from '../hooks/index';
+import { cardIdFocused } from '../store/action';
 type CardProps = {
   offer: Offer;
 }
@@ -12,10 +13,12 @@ type CardProps = {
 & Pick < HTMLAttributes<HTMLDivElement>, 'onMouseOver' | 'onMouseLeave'>
 
 function CardInList ({offer, className,onMouseOver, onMouseLeave}: CardProps): JSX.Element {
+  const dispatch = useAppDispatch();
+
   return(
     <article
-      onMouseOver={onMouseOver}
-      onMouseLeave={onMouseLeave}
+      onMouseOver={() => dispatch?.(cardIdFocused(offer.id))}
+      onMouseLeave={() => dispatch?.(cardIdFocused(null))}
       className={`${className ?? ''}__card place-card`}
     >
       <div className={`${className ?? ''}__image-wrapper place-card__image-wrapper`}>

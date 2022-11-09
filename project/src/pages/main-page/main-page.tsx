@@ -1,10 +1,11 @@
-import React from 'react';
 import CardsList from '../../components/card-list';
 import MainHeader from '../../components/main-header';
 import { Offers } from '../../types/offer';
-import { Link } from 'react-router-dom';
 import {Map} from '../../components/map';
-import {AppRoute, CardPage } from '../../const';
+import {CardPage, CitiesList } from '../../const';
+import CityList from '../../components/city-list';
+import { useAppDispatch, useAppSelector } from '../../hooks/index';
+import { cityChange } from '../../store/action';
 
 
 type MainPageProps = {
@@ -12,54 +13,25 @@ type MainPageProps = {
 }
 
 function MainPage({offers}: MainPageProps): JSX.Element {
-  const [selectedOfferId, setSelectedOffer] = React.useState <number | undefined>();
+  const currentCityName = useAppSelector((state) => state.city);
+  const selectedOfferId = useAppSelector((state) => state.selectedOfferId);
+  const offersByFilteredCity = offers ? offers.filter((offer) => offer.city.name === currentCityName) : [];
+  const dispatch = useAppDispatch();
+  const onCityChageHandler = (city: string) => {
+    dispatch(cityChange(city));
+  };
 
   return (
     <>
       < MainHeader/>
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
-        <div className="tabs">
-          <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <Link className="locations__item-link tabs__item" to={AppRoute.Root}>
-                  <span>Paris</span>
-                </Link>
-              </li>
-              <li className="locations__item">
-                <Link className="locations__item-link tabs__item" to={AppRoute.Root}>
-                  <span>Cologne</span>
-                </Link>
-              </li>
-              <li className="locations__item">
-                <Link className="locations__item-link tabs__item" to={AppRoute.Root}>
-                  <span>Brussels</span>
-                </Link>
-              </li>
-              <li className="locations__item">
-                <Link className="locations__item-link tabs__item" to={AppRoute.Root}>
-                  <span>Amsterdam</span>
-                </Link>
-              </li>
-              <li className="locations__item">
-                <Link className="locations__item-link tabs__item" to={AppRoute.Root}>
-                  <span>Hamburg</span>
-                </Link>
-              </li>
-              <li className="locations__item">
-                <Link className="locations__item-link tabs__item" to={AppRoute.Root}>
-                  <span>Dusseldorf</span>
-                </Link>
-              </li>
-            </ul>
-          </section>
-        </div>
+        <CityList selectedCity={currentCityName} onCityChange={onCityChageHandler} offers={offers}/>
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offers.length} places to stay in Amsterdam</b>
+              <b className="places__found">{offersByFilteredCity.length} places to stay in {currentCityName}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -75,10 +47,10 @@ function MainPage({offers}: MainPageProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <CardsList offers = {offers} className={CardPage.MainPage} setSelectedOffer={setSelectedOffer}/>
+              <CardsList offers = {offersByFilteredCity} className={CardPage.MainPage}/>
             </section>
             <div className="cities__right-section">
-              <Map classMap={CardPage.MainPage} city={offers[0].city} points={offers} selectedPointId = {selectedOfferId}/>
+              <Map classMap={CardPage.MainPage} city={CitiesList.find((city) => city.name === currentCityName) || offers[0].city} points={offersByFilteredCity} selectedPointId = {selectedOfferId}/>
             </div>
           </div>
         </div>

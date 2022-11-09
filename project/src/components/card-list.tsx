@@ -4,14 +4,13 @@ import { Offers } from '../types/offer';
 import {CardPage} from '../const';
 import cn from 'classnames';
 
+
 type CardsProps = {
   offers: Offers;
-  setSelectedOffer?: (pointId?: number|undefined) => void;
 } & Pick < HTMLAttributes<HTMLDivElement>, 'className'>
 
 
-function CardsList({offers, className: cardPage, setSelectedOffer} : CardsProps) : JSX.Element{
-
+function CardsList({offers, className: cardPage} : CardsProps) : JSX.Element{
   return (
     <div
       className = {
@@ -29,8 +28,6 @@ function CardsList({offers, className: cardPage, setSelectedOffer} : CardsProps)
           key={offer.id}
           offer={offer}
           className={cardPage}
-          onMouseOver={() => setSelectedOffer?.(offer.id)}
-          onMouseLeave={() => setSelectedOffer?.()}
         />
       ))}
     </div>
