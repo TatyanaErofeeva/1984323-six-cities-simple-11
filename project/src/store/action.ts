@@ -9,7 +9,7 @@ export const offersListLoad = createAction('load/offersListLoad', (value: Offers
   payload: value
 }));
 
-export const focusCardId = createAction('card/cardIdFocused', (value: number) => ({
+export const focusCardId = createAction('card/cardIdFocused', (value?: number) => ({
   payload: value
 }));
 

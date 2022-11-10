@@ -23,7 +23,7 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(offersListLoad, (state, action: PayloadAction<Offers>) => {
       state.offersList = action.payload;
     })
-    .addCase(focusCardId, (state, action: PayloadAction<number>) => {
+    .addCase(focusCardId, (state, action: PayloadAction<number|undefined>) => {
       state.selectedOfferId = action.payload;
     });
 });

@@ -18,7 +18,7 @@ function CardInList ({offer, className,onMouseOver, onMouseLeave}: CardProps): J
   return(
     <article
       onMouseOver={() => dispatch(focusCardId(offer.id))}
-      onMouseLeave={() => dispatch(focusCardId(null))}
+      onMouseLeave={() => dispatch(focusCardId())}
       className={`${className ?? ''}__card place-card`}
     >
       <div className={`${className ?? ''}__image-wrapper place-card__image-wrapper`}>
