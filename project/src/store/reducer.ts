@@ -1,5 +1,5 @@
 import {createReducer} from '@reduxjs/toolkit';
-import { cityChange, offersListLoad, cardIdFocused } from './action';
+import { cityChange, offersListLoad, focusCardId } from './action';
 import { Offers } from '../types/offer';
 
 type InitialState = {
@@ -22,7 +22,7 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(offersListLoad, (state, action) => {
       state.offersList = action.payload;
     })
-    .addCase(cardIdFocused, (state, action) => {
+    .addCase(focusCardId, (state, action) => {
       state.selectedOfferId = action.payload;
     });
 });
