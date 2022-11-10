@@ -1,7 +1,7 @@
 import React from 'react';
 import {FormEvent, ChangeEvent} from 'react';
 import { ReviewFormRating} from './review-form-rating';
-import { MAX_STARS } from '../const';
+import { STARS_MAX } from '../util';
 
 function ReviewForm(): JSX.Element{
   const [reviewForm, setReviewForm] = React.useState({rating: 0, review: '' });
@@ -20,7 +20,7 @@ function ReviewForm(): JSX.Element{
 
   const getRatingStars = () => {
     const ratingIndexes = [];
-    for (let i = MAX_STARS; i > 0; i--) {
+    for (let i = STARS_MAX; i > 0; i--) {
       ratingIndexes.push(<ReviewFormRating key={i} index={i} onChange={handleFormChange}/>);
     }
     return ratingIndexes;

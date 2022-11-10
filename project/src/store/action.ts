@@ -13,3 +13,6 @@ export const focusCardId = createAction('card/cardIdFocused', (value?: number) =
   payload: value
 }));
 
+export const sortCards = createAction('sort/sortCardsList', (value: string) => ({
+  payload: value
+}));
