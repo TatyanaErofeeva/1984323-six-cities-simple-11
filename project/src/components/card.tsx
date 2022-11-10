@@ -5,7 +5,7 @@ import { generatePath } from 'react-router';
 import { AppRoute } from '../const';
 import {formatRatingToStars, ucFirstLetter} from '../util';
 import { useAppDispatch} from '../hooks/index';
-import { cardIdFocused } from '../store/action';
+import { focusCardId } from '../store/action';
 type CardProps = {
   offer: Offer;
 }
@@ -17,8 +17,8 @@ function CardInList ({offer, className,onMouseOver, onMouseLeave}: CardProps): J
 
   return(
     <article
-      onMouseOver={() => dispatch?.(cardIdFocused(offer.id))}
-      onMouseLeave={() => dispatch?.(cardIdFocused(null))}
+      onMouseOver={() => dispatch(focusCardId(offer.id))}
+      onMouseLeave={() => dispatch(focusCardId())}
       className={`${className ?? ''}__card place-card`}
     >
       <div className={`${className ?? ''}__image-wrapper place-card__image-wrapper`}>
