@@ -1,6 +1,7 @@
 import {createReducer} from '@reduxjs/toolkit';
 import { cityChange, offersListLoad, focusCardId } from './action';
 import { Offers } from '../types/offer';
+import { PayloadAction } from '@reduxjs/toolkit/dist/createAction';
 
 type InitialState = {
   city: string;
@@ -16,13 +17,13 @@ const initialState: InitialState = {
 
 const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(cityChange, (state, action) => {
+    .addCase(cityChange, (state, action: PayloadAction<string>) => {
       state.city = action.payload;
     })
-    .addCase(offersListLoad, (state, action) => {
+    .addCase(offersListLoad, (state, action: PayloadAction<Offers>) => {
       state.offersList = action.payload;
     })
-    .addCase(focusCardId, (state, action) => {
+    .addCase(focusCardId, (state, action: PayloadAction<number>) => {
       state.selectedOfferId = action.payload;
     });
 });
