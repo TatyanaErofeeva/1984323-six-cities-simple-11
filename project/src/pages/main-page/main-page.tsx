@@ -6,6 +6,8 @@ import {CardPage, CitiesList } from '../../const';
 import CityList from '../../components/city-list';
 import { useAppDispatch, useAppSelector } from '../../hooks/index';
 import { cityChange } from '../../store/action';
+import SortCardsForm from '../../components/sort-form';
+import {getSortedCards} from '../../util';
 
 
 type MainPageProps = {
@@ -20,6 +22,8 @@ function MainPage({offers}: MainPageProps): JSX.Element {
   const onCityChageHandler = (city: string) => {
     dispatch(cityChange(city));
   };
+  const selectedSortType = useAppSelector((state) => state.sortType);
+  const sortedOffers: Offers = offersByFilteredCity.length > 0 ? getSortedCards(offersByFilteredCity, selectedSortType) : [];
 
   return (
     <>
@@ -32,22 +36,8 @@ function MainPage({offers}: MainPageProps): JSX.Element {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{offersByFilteredCity.length} places to stay in {currentCityName}</b>
-              <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabIndex={0}>
-              Popular
-                  <svg className="places__sorting-arrow" width="7" height="4">
-                    <use xlinkHref="#icon-arrow-select"></use>
-                  </svg>
-                </span>
-                <ul className="places__options places__options--custom places__options--opened">
-                  <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-                  <li className="places__option" tabIndex={0}>Price: low to high</li>
-                  <li className="places__option" tabIndex={0}>Price: high to low</li>
-                  <li className="places__option" tabIndex={0}>Top rated first</li>
-                </ul>
-              </form>
-              <CardsList offers = {offersByFilteredCity} className={CardPage.MainPage}/>
+              <SortCardsForm/>
+              <CardsList offers = {sortedOffers} className={CardPage.MainPage}/>
             </section>
             <div className="cities__right-section">
               <Map classMap={CardPage.MainPage} city={CitiesList.find((city) => city.name === currentCityName) || offers[0].city} points={offersByFilteredCity} selectedPointId = {selectedOfferId}/>
