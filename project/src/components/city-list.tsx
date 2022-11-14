@@ -1,15 +1,13 @@
 import { AppRoute, CitiesList } from '../const';
 import { Link } from 'react-router-dom';
-import { Offers } from '../types/offer';
 import cn from 'classnames';
 
 type CityListProps = {
   selectedCity: string;
   onCityChange: (currentCity: string) => void;
-  offers: Offers;
 }
 
-function CityList({selectedCity, onCityChange, offers} : CityListProps) : JSX.Element {
+function CityList({selectedCity, onCityChange} : CityListProps) : JSX.Element {
   return (
     <div className="tabs">
       <section className="locations container">

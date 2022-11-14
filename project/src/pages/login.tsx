@@ -1,6 +1,11 @@
 import LogoHeader from '../components/logo-header';
+import { Link } from 'react-router-dom';
+import { useAppDispatch } from '../hooks';
+import { AppRoute, CitiesList } from '../const';
+import { cityChange } from '../store/action';
 
 function Login() {
+  const dispatch = useAppDispatch();
   return (
     <>
       < LogoHeader/>
@@ -21,9 +26,9 @@ function Login() {
         </section>
         <section className="locations locations--login locations--current">
           <div className="locations__item">
-            <a className="locations__item-link" href="{#}">
-              <span>Amsterdam</span>
-            </a>
+            <Link className="locations__item-link" to={AppRoute.Root} onClick={() => dispatch(cityChange(CitiesList[0].name))}>
+              <span>{CitiesList[0].name}</span>
+            </Link>
           </div>
         </section>
       </div>

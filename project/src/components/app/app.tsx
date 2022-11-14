@@ -1,18 +1,26 @@
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute} from '../../const';
 import MainPage from '../../pages/main-page/main-page';
 import Login from '../../pages/login';
 import Property from '../../pages/property';
 import NotFound from '../../pages/not-found';
-import { Offers } from '../../types/offer';
+import {useAppSelector} from '../../hooks';
 import { Reviews } from '../../types/review';
 
-
-type AppCardsProps = {
-  offers: Offers;
+type AppProps = {
   reviews: Reviews;
-}
-function App({offers, reviews}: AppCardsProps): JSX.Element {
+};
+
+function App({reviews}:AppProps): JSX.Element {
+  //const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  //const isOffersListLoaded = useAppSelector((state) => state.isOffersListLoaded);
+  const offers = useAppSelector((state) => state.offersList);
+
+  // if (authorizationStatus === AuthorizationStatus.Unknown || isOffersListLoaded) {
+  //   return (
+  //     <LoadingScreen />
+  //   );
+  // }
   return (
     <BrowserRouter>
       <Routes>
@@ -20,7 +28,7 @@ function App({offers, reviews}: AppCardsProps): JSX.Element {
           path = {AppRoute.Root}
         >
           <Route
-            index element ={<MainPage offers ={offers} />}
+            index element ={<MainPage offers={offers}/>}
           />
           <Route
             path ={AppRoute.Login}
