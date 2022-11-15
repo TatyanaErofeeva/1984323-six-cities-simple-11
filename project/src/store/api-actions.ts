@@ -26,11 +26,14 @@ export const fetchOffersListAction = createAsyncThunk<void, undefined, {
 }>(
   'data/fetchOffersList',
   async (_arg, {dispatch, extra: api}) => {
-    dispatch(setOffersListLoadingStatus(true));
-    const {data} = await api.get<Offers>(APIRoute.OffersList);
-    console.log({data});
-    dispatch(offersListLoad(data));
-    dispatch(setOffersListLoadingStatus(false));
+    try{
+      dispatch(setOffersListLoadingStatus(true));
+      const {data} = await api.get<Offers>(APIRoute.OffersList);
+      dispatch(offersListLoad(data));
+      dispatch(setOffersListLoadingStatus(false));
+    } catch{
+      console.log('Ошибка загрузки данных');
+    }
   },
 );
 

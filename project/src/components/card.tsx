@@ -23,14 +23,20 @@ function CardInList ({offer, className,onMouseOver, onMouseLeave}: CardProps): J
     >
       <div className={`${className ?? ''}__image-wrapper place-card__image-wrapper`}>
         <Link to={`/offer/${offer.id}`}>
-          <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place" />
+          <img
+            className="place-card__image"
+            src={offer.previewImage}
+            width="260"
+            height="200"
+            alt="Place"
+          />
         </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">
-              &euro;{offer.cost}
+              &euro;{offer.price}
             </b>
             <span className="place-card__price-text">
                 &#47;&nbsp;night
@@ -51,10 +57,14 @@ function CardInList ({offer, className,onMouseOver, onMouseLeave}: CardProps): J
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={generatePath(AppRoute.Property, {id: String(offer.id)})}>{offer.description}</Link>
+          <Link
+            to={generatePath(AppRoute.Property, {id: String(offer.id)})}
+          >
+            {offer.description}
+          </Link>
         </h2>
         <p className="place-card__type">
-          {ucFirstLetter(offer.accommodation)}
+          {ucFirstLetter(offer.type)}
         </p>
       </div>
     </article>

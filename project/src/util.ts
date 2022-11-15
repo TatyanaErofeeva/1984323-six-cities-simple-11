@@ -11,9 +11,9 @@ const getSortedCards = (offers: Offers, sortType:string): Offers => {
     case OffersTypesOfSort.Popular:
       return offers;
     case OffersTypesOfSort.PriceToHigh:
-      return offers?.sort((offerB, offerA) => offerB.cost - offerA.cost);
+      return offers?.sort((offerB, offerA) => offerB.price - offerA.price);
     case OffersTypesOfSort.PriceToLow:
-      return offers?.sort((offerB, offerA) => offerA.cost - offerB.cost);
+      return offers?.sort((offerB, offerA) => offerA.price - offerB.price);
     case OffersTypesOfSort.TopRatedFirst:
       return offers?.sort((offerB, offerA) => offerA.rating - offerB.rating);
   }

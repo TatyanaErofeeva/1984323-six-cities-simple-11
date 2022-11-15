@@ -22,7 +22,6 @@ function MainPage({offers}: MainPageProps): JSX.Element {
   const offersByFilteredCity = offers ? offers.filter((offer) => offer.city.name === currentCityName) : [];
   const dispatch = useAppDispatch();
   const isOffersListLoaded = useAppSelector((state) => state.isOffersListLoaded);
-  console.log(isOffersListLoaded);
 
   if (isOffersListLoaded) {
     return (
@@ -33,7 +32,7 @@ function MainPage({offers}: MainPageProps): JSX.Element {
     dispatch(cityChange(city));
   };
   const sortedOffers: Offers = offersByFilteredCity.length > 0 ? getSortedCards(offersByFilteredCity, selectedSortType) : [];
-
+  const city = CitiesList.find((city) => city.name === currentCityName) || offers[0].city;
   return (
     <>
       < MainHeader/>
@@ -44,12 +43,21 @@ function MainPage({offers}: MainPageProps): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offersByFilteredCity.length} places to stay in {currentCityName}</b>
+              <b
+                className="places__found"
+              >
+                {offersByFilteredCity.length} places to stay in {currentCityName}
+              </b>
               <SortCardsForm/>
               <CardsList offers = {sortedOffers} className={CardPage.MainPage}/>
             </section>
             <div className="cities__right-section">
-              <Map classMap={CardPage.MainPage} city={CitiesList.find((city) => city.name === currentCityName) || offers[0].city} points={offersByFilteredCity} selectedPointId = {selectedOfferId}/>
+              <Map
+                classMap={CardPage.MainPage}
+                city={city}
+                points={offersByFilteredCity}
+                selectedPointId = {selectedOfferId}
+              />
             </div>
           </div>
         </div>

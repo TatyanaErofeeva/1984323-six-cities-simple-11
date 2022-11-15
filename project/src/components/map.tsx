@@ -32,6 +32,12 @@ function Map({classMap, city, points, selectedPointId}: MapProps): JSX.Element {
 
   useEffect(() => {
     if (map) {
+      map.flyTo({
+        lat: city.location.latitude,
+        lng: city.location.longitude
+      },
+      city.location.zoom);
+
       points.forEach((point) => {
         const {location} = point;
         leaflet

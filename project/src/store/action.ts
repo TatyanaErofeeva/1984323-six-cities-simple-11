@@ -1,6 +1,6 @@
 import {createAction} from '@reduxjs/toolkit';
 import { Offers } from '../types/offer';
-import {AuthorizationStatus} from '../const';
+import {AuthorizationStatus, OffersTypesOfSort} from '../const';
 
 export const cityChange = createAction('filter/cityChange', (value: string) => ({
   payload: value
@@ -16,7 +16,7 @@ export const focusCardId = createAction('card/cardIdFocused', (value?: number) =
   payload: value
 }));
 
-export const sortCards = createAction('sort/sortCardsList', (value: string) => ({
+export const sortCards = createAction('sort/sortCardsList', (value: OffersTypesOfSort) => ({
   payload: value
 }));
 
