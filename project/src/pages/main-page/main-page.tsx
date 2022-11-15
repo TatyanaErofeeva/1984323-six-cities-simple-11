@@ -2,7 +2,7 @@ import CardsList from '../../components/card-list';
 import MainHeader from '../../components/main-header';
 import { Offers } from '../../types/offer';
 import {Map} from '../../components/map';
-import {CardPage, CitiesList } from '../../const';
+import {CardPage, CitiesList} from '../../const';
 import CityList from '../../components/city-list';
 import { useAppDispatch, useAppSelector } from '../../hooks/index';
 import { cityChange } from '../../store/action';
@@ -33,6 +33,7 @@ function MainPage({offers}: MainPageProps): JSX.Element {
   };
   const sortedOffers: Offers = offersByFilteredCity.length > 0 ? getSortedCards(offersByFilteredCity, selectedSortType) : [];
   const cityName = CitiesList.find((city) => city.name === currentCityName) || offers[0].city;
+
   return (
     <>
       < MainHeader/>
