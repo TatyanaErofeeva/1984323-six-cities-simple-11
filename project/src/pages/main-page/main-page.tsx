@@ -32,7 +32,7 @@ function MainPage({offers}: MainPageProps): JSX.Element {
     dispatch(cityChange(city));
   };
   const sortedOffers: Offers = offersByFilteredCity.length > 0 ? getSortedCards(offersByFilteredCity, selectedSortType) : [];
-  const city = CitiesList.find((city) => city.name === currentCityName) || offers[0].city;
+  const cityName = CitiesList.find((city) => city.name === currentCityName) || offers[0].city;
   return (
     <>
       < MainHeader/>
@@ -54,7 +54,7 @@ function MainPage({offers}: MainPageProps): JSX.Element {
             <div className="cities__right-section">
               <Map
                 classMap={CardPage.MainPage}
-                city={city}
+                city={cityName}
                 points={offersByFilteredCity}
                 selectedPointId = {selectedOfferId}
               />
