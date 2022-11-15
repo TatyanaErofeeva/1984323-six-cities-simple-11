@@ -13,12 +13,12 @@ export type OfferCity = {
 export type Offer = {
   id: number;
   isPremium: boolean;
-  cost: number;
+  price: number;
   previewImage: string;
   city: OfferCity;
   title:string;
   description: string;
-  accommodation:string;
+  type:string;
   images: string[];
   rating: number;
   bedrooms: number;

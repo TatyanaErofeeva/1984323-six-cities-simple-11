@@ -74,5 +74,19 @@ export enum OffersTypesOfSort {
   TopRatedFirst = 'Top rated first'
 }
 
+export enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
+}
+
+export enum APIRoute {
+  OffersList = '/hotels',
+  Login = '/login',
+  Logout = '/logout',
+}
+
+export const TIMEOUT_SHOW_ERROR = 2000;
+
 export {URL_MARKER_CURRENT, URL_MARKER_DEFAULT};
 

@@ -3,18 +3,20 @@ import cn from 'classnames';
 
 type SortCardsProps = {
   selectedSortType: string;
-  onChangeSortType: (currentCity: string) => void;
+  onChangeSortType: (currentCity: OffersTypesOfSort) => void;
+  isSortingOpened: boolean;
 }
 
-function SortCards({selectedSortType, onChangeSortType}: SortCardsProps): JSX.Element {
+function SortCards({selectedSortType, onChangeSortType, isSortingOpened}: SortCardsProps): JSX.Element {
   return (
     <ul
       className= {
         cn(
           'places__options',
           'places__options--custom',
-          'places__options--opened'
-        )
+          {
+            'places__options--opened': isSortingOpened,
+          })
       }
     >
       {

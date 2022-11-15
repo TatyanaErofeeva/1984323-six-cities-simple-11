@@ -39,10 +39,10 @@ function Property({offers, reviews}: PropertyPageProps): JSX.Element {
     images,
     isPremium,
     maxAdults,
-    cost,
+    price: cost,
     rating,
     title,
-    accommodation
+    type: accommodation
   } = offer;
 
   return(
@@ -105,7 +105,9 @@ function Property({offers, reviews}: PropertyPageProps): JSX.Element {
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
-                  <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
+                  <div
+                    className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper"
+                  >
                     <img
                       className="property__avatar user__avatar"
                       src={host.avatarUrl}
@@ -143,7 +145,12 @@ function Property({offers, reviews}: PropertyPageProps): JSX.Element {
               </section>
             </div>
           </div>
-          <Map classMap={CardPage.PropertyPageMap} city={offers[0].city} points={offers} selectedPointId = {offer.id}/>
+          <Map
+            classMap={CardPage.PropertyPageMap}
+            city={offers[0].city}
+            points={offers}
+            selectedPointId = {offer.id}
+          />
         </section>
         <div className="container">
           <section className="near-places places">
