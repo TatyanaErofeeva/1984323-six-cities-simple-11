@@ -1,6 +1,6 @@
 import {createAction} from '@reduxjs/toolkit';
 import { Offers } from '../types/offer';
-import {AuthorizationStatus, OffersTypesOfSort} from '../const';
+import {AppRoute, AuthorizationStatus, OffersTypesOfSort} from '../const';
 
 export const cityChange = createAction('filter/cityChange', (value: string) => ({
   payload: value
@@ -22,4 +22,7 @@ export const sortCards = createAction('sort/sortCardsList', (value: OffersTypesO
 
 export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
 
-export const setError = createAction<string | null>('load/setError');
+export const setAuthStatus = createAction<boolean>('user/setAuthStatus');
+
+export const redirectToAnotherRoute = createAction<AppRoute>('login/redirectToAnotherRoute');
+

@@ -1,18 +1,39 @@
+import React from 'react';
 import LogoHeader from '../components/logo-header';
 import { Link } from 'react-router-dom';
-import { useAppDispatch } from '../hooks';
-import { AppRoute, CitiesList } from '../const';
+import { useAppDispatch} from '../hooks';
+import { AppRoute, CitiesList} from '../const';
 import { cityChange } from '../store/action';
+
+import { loginAction } from '../store/api-actions';
+import { FormEvent, ChangeEvent } from 'react';
 
 function Login() {
   const dispatch = useAppDispatch();
+  const [emailField, setEmailField] = React.useState('');
+  const [passwordField, setPasswordField] = React.useState('');
+
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    dispatch(loginAction({email: emailField, password:passwordField}));
+  };
+
+  const handleEmailFieldChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    setEmailField(evt.target.value);
+  };
+
+  const handlePasswordFieldChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    setPasswordField(evt.target.value);
+  };
+
+
   return (
     <>
       < LogoHeader/>
       <div className="page__login-container container">
         <section className="login">
           <h1 className="login__title">Sign in</h1>
-          <form className="login__form form" action="#" method="post">
+          <form onSubmit = {handleSubmit} className="login__form form" action="#" method="post">
             <div className="login__input-wrapper form__input-wrapper">
               <label className="visually-hidden">E-mail</label>
               <input
@@ -20,6 +41,8 @@ function Login() {
                 type="email"
                 name="email"
                 placeholder="Email"
+                onChange = {handleEmailFieldChange}
+                value = {emailField}
                 required
               />
             </div>
@@ -30,10 +53,20 @@ function Login() {
                 type="password"
                 name="password"
                 placeholder="Password"
+                onChange = {handlePasswordFieldChange}
+                value = {passwordField}
                 required
               />
             </div>
-            <button className="login__submit form__submit button" type="submit">Sign in</button>
+            <button
+              onClick={(evt) => {
+                evt.preventDefault();
+                dispatch(loginAction({email: emailField, password:passwordField}));
+              }}
+              className="login__submit form__submit button"
+              type="submit"
+            >Sign in
+            </button>
           </form>
         </section>
         <section className="locations locations--login locations--current">

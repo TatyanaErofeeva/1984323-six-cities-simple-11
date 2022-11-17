@@ -1,5 +1,5 @@
 import {createReducer} from '@reduxjs/toolkit';
-import { cityChange, offersListLoad, focusCardId, sortCards, requireAuthorization, setError, setOffersListLoadingStatus} from './action';
+import { cityChange, offersListLoad, focusCardId, sortCards, requireAuthorization, setOffersListLoadingStatus, setAuthStatus} from './action';
 import { Offers } from '../types/offer';
 import { PayloadAction } from '@reduxjs/toolkit/dist/createAction';
 import {AuthorizationStatus, OffersTypesOfSort} from '../const';
@@ -12,6 +12,7 @@ type InitialState = {
   authorizationStatus: AuthorizationStatus;
   error: string | null;
   isOffersListLoaded: boolean;
+  isAuthCompleted: boolean;
 };
 
 const initialState: InitialState = {
@@ -22,6 +23,7 @@ const initialState: InitialState = {
   authorizationStatus: AuthorizationStatus.Unknown,
   error: null,
   isOffersListLoaded: false,
+  isAuthCompleted: false,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -44,8 +46,8 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(requireAuthorization, (state, action: PayloadAction<AuthorizationStatus>) => {
       state.authorizationStatus = action.payload;
     })
-    .addCase(setError, (state, action: PayloadAction<string | null>) => {
-      state.error = action.payload;
+    .addCase(setAuthStatus, (state, action: PayloadAction<boolean>) => {
+      state.isAuthCompleted = action.payload;
     });
 });
 
