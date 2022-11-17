@@ -1,12 +1,13 @@
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
-import { AppRoute, AuthorizationStatus} from '../../const';
+import {Route, Routes} from 'react-router-dom';
+import { AppRoute} from '../../const';
 import MainPage from '../../pages/main-page/main-page';
 import Login from '../../pages/login';
 import Property from '../../pages/property';
 import NotFound from '../../pages/not-found';
 import {useAppSelector} from '../../hooks';
 import { Reviews } from '../../types/review';
-import {LoadingScreen} from '../../pages/loading-screen';
+import HistoryRouter from '../history-route';
+import browserHistory from '../../browser-history';
 
 type AppProps = {
   reviews: Reviews;
@@ -16,7 +17,7 @@ function App({reviews}:AppProps): JSX.Element {
   const offers = useAppSelector((state) => state.offersList);
 
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route
           path = {AppRoute.Root}
@@ -35,7 +36,7 @@ function App({reviews}:AppProps): JSX.Element {
         </Route>
         <Route path = '*' element = {<NotFound/>}/>
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }
 

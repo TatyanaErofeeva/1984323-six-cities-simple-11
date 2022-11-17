@@ -2,22 +2,12 @@ import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state.js';
 import { Offers } from '../types/offer.js';
-import {offersListLoad, requireAuthorization, setError, setOffersListLoadingStatus, redirectToAnotherRoute} from './action';
+import {offersListLoad, requireAuthorization, setOffersListLoadingStatus, redirectToAnotherRoute} from './action';
 import {saveToken} from '../services/token';
-import {APIRoute, AppRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR} from '../const';
+import {APIRoute, AppRoute, AuthorizationStatus} from '../const';
 import {AuthData} from '../types/auth-data';
 import {UserData} from '../types/user-data';
-import {store} from './';
-
-export const clearErrorAction = createAsyncThunk(
-  'load/clearError',
-  () => {
-    setTimeout(
-      () => store.dispatch(setError(null)),
-      TIMEOUT_SHOW_ERROR,
-    );
-  },
-);
+import { toast } from 'react-toastify';
 
 export const fetchOffersListAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -32,7 +22,7 @@ export const fetchOffersListAction = createAsyncThunk<void, undefined, {
       dispatch(offersListLoad(data));
       dispatch(setOffersListLoadingStatus(false));
     } catch{
-      console.log('Ошибка загрузки данных');
+      toast.error('Ошибка загрузки данных');
     }
   },
 );
@@ -60,10 +50,14 @@ export const loginAction = createAsyncThunk<void, AuthData, {
 }>(
   'user/login',
   async ({email, password}, {dispatch, extra: api}) => {
-    const {data: {token}} = await api.post<UserData>(APIRoute.Login, {email, password});
-    saveToken(token);
-    dispatch(requireAuthorization(AuthorizationStatus.Auth));
-    dispatch(redirectToAnotherRoute(AppRoute.Root));
+    try{
+      const {data: {token}} = await api.post<UserData>(APIRoute.Login, {email, password});
+      saveToken(token);
+      dispatch(requireAuthorization(AuthorizationStatus.Auth));
+      dispatch(redirectToAnotherRoute(AppRoute.Root));
+    } catch{
+      toast.error('Ошибка авторизации');
+    }
   },
 );
 

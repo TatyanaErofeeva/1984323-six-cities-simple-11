@@ -10,7 +10,6 @@ import SortCardsForm from '../../components/sort-form';
 import {getSortedCards} from '../../util';
 import {LoadingScreen} from '../../pages/loading-screen';
 
-
 type MainPageProps = {
   offers: Offers;
 }

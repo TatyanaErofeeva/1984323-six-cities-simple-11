@@ -22,6 +22,7 @@ export const sortCards = createAction('sort/sortCardsList', (value: OffersTypesO
 
 export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
 
+export const setAuthStatus = createAction<boolean>('user/setAuthStatus');
+
 export const redirectToAnotherRoute = createAction<AppRoute>('login/redirectToAnotherRoute');
 
-export const setError = createAction<string | null>('load/setError');
