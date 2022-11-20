@@ -2,13 +2,22 @@ import React from 'react';
 import {FormEvent, ChangeEvent} from 'react';
 import { ReviewFormRating} from './review-form-rating';
 import { STARS_MAX } from '../util';
+import {commentPostAction} from '../store/api-actions';
+import { useAppDispatch} from '../hooks';
 
-function ReviewForm(): JSX.Element{
+type ReviewFormProps = {
+  OfferId: number;
+}
+
+function ReviewForm({OfferId} : ReviewFormProps): JSX.Element{
   const [reviewForm, setReviewForm] = React.useState({rating: 0, review: '' });
+  const dispatch = useAppDispatch();
+  const resetFormData = () => setReviewForm({...reviewForm, rating: 0, review: '' });
+
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
+    dispatch(commentPostAction({hotelId: OfferId, comment: reviewForm.review, rating: reviewForm.rating, resetFormData: resetFormData }));
   };
-
   const handleFormChange = (evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const {name, value} = evt.target;
 

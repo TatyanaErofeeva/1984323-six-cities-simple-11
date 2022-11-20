@@ -5,15 +5,10 @@ import Login from '../../pages/login';
 import Property from '../../pages/property';
 import NotFound from '../../pages/not-found';
 import {useAppSelector} from '../../hooks';
-import { Reviews } from '../../types/review';
 import HistoryRouter from '../history-route';
 import browserHistory from '../../browser-history';
 
-type AppProps = {
-  reviews: Reviews;
-};
-
-function App({reviews}:AppProps): JSX.Element {
+function App(): JSX.Element {
   const offers = useAppSelector((state) => state.offersList);
 
   return (
@@ -31,7 +26,7 @@ function App({reviews}:AppProps): JSX.Element {
           />
           <Route
             path ={AppRoute.Property}
-            element ={<Property offers={offers} reviews={reviews}/>}
+            element ={<Property/>}
           />
         </Route>
         <Route path = '*' element = {<NotFound/>}/>
