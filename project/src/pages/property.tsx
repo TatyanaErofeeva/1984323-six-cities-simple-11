@@ -32,14 +32,15 @@ function Property(): JSX.Element {
   const offer = useAppSelector((state) => state.offer);
   const nearbyOffers = useAppSelector((state) => state.nearbyOffers);
   const isDataLoading = useAppSelector((state) => state.isDataLoading);
+  const isOfferLoadedError = useAppSelector((state) => state.isOfferLoadedError);
 
-  if (isDataLoading || !offer) {
+  if (isDataLoading) {
     return (
       <LoadingScreen />
     );
   }
 
-  if (!offer) {
+  if (isOfferLoadedError || !offer) {
     return (<NotFound />);
   }
 
@@ -139,7 +140,7 @@ function Property(): JSX.Element {
                   </p>
                 </div>
               </div>
-              <PropertyReview OfferId={Number(id)}/>
+              <PropertyReview offerId={Number(id)}/>
             </div>
           </div>
           <Map

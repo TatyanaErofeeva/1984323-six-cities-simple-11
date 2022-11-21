@@ -4,10 +4,10 @@ import { ReviewCard } from '../components/review-card';
 import {ReviewForm} from '../components/review-form';
 
 type ReviewsSectionProps = {
-  OfferId: number;
+  offerId: number;
 }
 
-function PropertyReview({OfferId}: ReviewsSectionProps): JSX.Element{
+function PropertyReview({offerId}: ReviewsSectionProps): JSX.Element{
   const authorisationStatus = useAppSelector((state) => state.authorizationStatus);
   const reviewsLoaded = useAppSelector((state) => state.commentsList);
   return(
@@ -26,7 +26,7 @@ function PropertyReview({OfferId}: ReviewsSectionProps): JSX.Element{
         {reviewsLoaded.map((item) => <ReviewCard key={item.id} review={item} />)}
       </ul>
       {authorisationStatus === AuthorizationStatus.Auth && (
-        <ReviewForm OfferId={OfferId}/>
+        <ReviewForm offerId={offerId}/>
       )}
     </section>
   );

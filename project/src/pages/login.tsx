@@ -6,15 +6,17 @@ import { AppRoute, CitiesList} from '../const';
 import { cityChange, redirectToAnotherRoute } from '../store/action';
 import { AuthorizationStatus } from '../const';
 import { loginAction } from '../store/api-actions';
-import { FormEvent, ChangeEvent } from 'react';
+import { FormEvent, ChangeEvent, useEffect } from 'react';
 
 function Login() {
   const dispatch = useAppDispatch();
   const authorisationStatus = useAppSelector((state) => state.authorizationStatus);
 
-  if(authorisationStatus === AuthorizationStatus.Auth){
-    dispatch(redirectToAnotherRoute(AppRoute.Root));
-  }
+  useEffect(() => {
+    if(authorisationStatus === AuthorizationStatus.Auth){
+      dispatch(redirectToAnotherRoute(AppRoute.Root));
+    }
+  }, [dispatch, authorisationStatus]);
 
   const [emailField, setEmailField] = React.useState('');
   const [passwordField, setPasswordField] = React.useState('');

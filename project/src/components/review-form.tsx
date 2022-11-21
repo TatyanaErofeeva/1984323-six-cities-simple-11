@@ -6,17 +6,17 @@ import {commentPostAction} from '../store/api-actions';
 import { useAppDispatch} from '../hooks';
 
 type ReviewFormProps = {
-  OfferId: number;
+  offerId: number;
 }
 
-function ReviewForm({OfferId} : ReviewFormProps): JSX.Element{
+function ReviewForm({offerId} : ReviewFormProps): JSX.Element{
   const [reviewForm, setReviewForm] = React.useState({rating: 0, review: '' });
   const dispatch = useAppDispatch();
   const resetFormData = () => setReviewForm({...reviewForm, rating: 0, review: '' });
 
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    dispatch(commentPostAction({hotelId: OfferId, comment: reviewForm.review, rating: reviewForm.rating, resetFormData: resetFormData }));
+    dispatch(commentPostAction({hotelId: offerId, comment: reviewForm.review, rating: reviewForm.rating, resetFormData: resetFormData }));
   };
   const handleFormChange = (evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const {name, value} = evt.target;
@@ -35,7 +35,7 @@ function ReviewForm({OfferId} : ReviewFormProps): JSX.Element{
     return ratingIndexes;
   };
 
-  const isValid = reviewForm.review || !reviewForm.rating;
+  const isValid = reviewForm.review && reviewForm.rating;
 
   return (
     <form onSubmit={handleFormSubmit} className="reviews__form form" action="#" method="post">

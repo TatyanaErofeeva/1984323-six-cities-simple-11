@@ -15,6 +15,8 @@ export const offerLoad = createAction('load/offerLoad', (value: Offer) => ({
   payload: value
 }));
 
+export const setOfferLoadingError = createAction<boolean>('data/setOffersLoadingError');
+
 export const setDatatLoadingStatus = createAction<boolean>('data/setOffersListLoadingStatus');
 
 export const commentsListLoad = createAction('load/commentsListLoad', (value: Reviews) => ({

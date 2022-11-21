@@ -1,5 +1,5 @@
 import {createReducer} from '@reduxjs/toolkit';
-import { cityChange, offersListLoad, offerLoad, focusCardId, nearbyOffersLoad, sortCards, requireAuthorization, commentPost, setDatatLoadingStatus, setAuthStatus, commentsListLoad} from './action';
+import { cityChange, offersListLoad, offerLoad, setOfferLoadingError, focusCardId, nearbyOffersLoad, sortCards, requireAuthorization, commentPost, setDatatLoadingStatus, setAuthStatus, commentsListLoad} from './action';
 import { Offers, Offer } from '../types/offer';
 import { Reviews, ReviewComment } from '../types/review';
 import { PayloadAction } from '@reduxjs/toolkit/dist/createAction';
@@ -18,6 +18,7 @@ type InitialState = {
   isAuthCompleted: boolean;
   nearbyOffers:Offers;
   commentPost?: ReviewComment;
+  isOfferLoadedError:boolean;
 };
 
 const initialState: InitialState = {
@@ -31,6 +32,7 @@ const initialState: InitialState = {
   isDataLoading: false,
   isAuthCompleted: false,
   nearbyOffers:[],
+  isOfferLoadedError:false,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -46,6 +48,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(offerLoad, (state, action: PayloadAction<Offer>) => {
       state.offer = action.payload;
+    })
+    .addCase(setOfferLoadingError, (state, action: PayloadAction<boolean>) => {
+      state.isOfferLoadedError = action.payload;
     })
     .addCase(nearbyOffersLoad, (state, action: PayloadAction<Offers>) => {
       state.nearbyOffers = action.payload;
