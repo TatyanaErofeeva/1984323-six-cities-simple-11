@@ -4,12 +4,14 @@ import { ReviewFormRating} from './review-form-rating';
 import { STARS_MAX } from '../util';
 import {commentPostAction} from '../store/api-actions';
 import { useAppDispatch} from '../hooks';
+import {useAppSelector} from '../hooks/index';
 
 type ReviewFormProps = {
   offerId: number;
 }
 
 function ReviewForm({offerId} : ReviewFormProps): JSX.Element{
+  const isCommentLoading = useAppSelector((state) => state.loaders['comment-post']);
   const [reviewForm, setReviewForm] = React.useState({rating: 0, review: '' });
   const dispatch = useAppDispatch();
   const resetFormData = () => setReviewForm({...reviewForm, rating: 0, review: '' });
@@ -34,8 +36,7 @@ function ReviewForm({offerId} : ReviewFormProps): JSX.Element{
     }
     return ratingIndexes;
   };
-
-  const isValid = reviewForm.review && reviewForm.rating;
+  const canSubmitForm = reviewForm.review && reviewForm.rating;
 
   return (
     <form onSubmit={handleFormSubmit} className="reviews__form form" action="#" method="post">
@@ -49,6 +50,7 @@ function ReviewForm({offerId} : ReviewFormProps): JSX.Element{
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         onChange={handleFormChange}
+        disabled = {isCommentLoading}
       >
       </textarea>
       <div className="reviews__button-wrapper">
@@ -65,10 +67,11 @@ function ReviewForm({offerId} : ReviewFormProps): JSX.Element{
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled = {!isValid}
+          disabled = {isCommentLoading || !canSubmitForm}
         >
           Submit
         </button>
+
       </div>
     </form>
   );

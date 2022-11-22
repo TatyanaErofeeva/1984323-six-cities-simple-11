@@ -31,7 +31,7 @@ function Property(): JSX.Element {
 
   const offer = useAppSelector((state) => state.offer);
   const nearbyOffers = useAppSelector((state) => state.nearbyOffers);
-  const isDataLoading = useAppSelector((state) => state.isDataLoading);
+  const isDataLoading = useAppSelector((state) => state.loaders['comments-load'] || state.loaders['offer-load']);
   const isOfferLoadedError = useAppSelector((state) => state.isOfferLoadedError);
 
   if (isDataLoading) {
@@ -43,6 +43,7 @@ function Property(): JSX.Element {
   if (isOfferLoadedError || !offer) {
     return (<NotFound />);
   }
+
 
   const {
     bedrooms,

@@ -20,7 +20,7 @@ function MainPage({offers}: MainPageProps): JSX.Element {
   const selectedSortType = useAppSelector((state) => state.sortType);
   const offersByFilteredCity = offers ? offers.filter((offer) => offer.city.name === currentCityName) : [];
   const dispatch = useAppDispatch();
-  const isOffersListLoaded = useAppSelector((state) => state.isDataLoading);
+  const isOffersListLoaded = useAppSelector((state) => state.loaders['offers-load']);
 
   if (isOffersListLoaded) {
     return (

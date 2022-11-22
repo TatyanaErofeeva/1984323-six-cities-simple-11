@@ -17,8 +17,6 @@ export const offerLoad = createAction('load/offerLoad', (value: Offer) => ({
 
 export const setOfferLoadingError = createAction<boolean>('data/setOffersLoadingError');
 
-export const setDatatLoadingStatus = createAction<boolean>('data/setOffersListLoadingStatus');
-
 export const commentsListLoad = createAction('load/commentsListLoad', (value: Reviews) => ({
   payload: value
 }));
@@ -44,4 +42,8 @@ export const requireAuthorization = createAction<AuthorizationStatus>('user/requ
 export const setAuthStatus = createAction<boolean>('user/setAuthStatus');
 
 export const redirectToAnotherRoute = createAction<AppRoute>('login/redirectToAnotherRoute');
+
+export const setLoaderState = createAction('state/setLoaderState', (value:[loader:string, state:boolean]) => ({
+  payload: value
+}));
 

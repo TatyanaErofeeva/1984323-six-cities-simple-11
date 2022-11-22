@@ -1,10 +1,13 @@
 import {useAppSelector} from '../hooks/index';
 import {AuthorizationStatus, AppRoute } from '../const';
 import { Link } from 'react-router-dom';
+import { useAppDispatch } from '../hooks/index';
+import { logoutAction } from '../store/api-actions';
 
 function MainHeader(){
   const authStatus = useAppSelector((state) => state.authorizationStatus);
   const isAuthed = (authStatus === AuthorizationStatus.Auth);
+  const dispatch = useAppDispatch();
 
   return (
     <header className="header">
@@ -43,6 +46,9 @@ function MainHeader(){
                  <Link
                    className="header__nav-link"
                    to={AppRoute.Root}
+                   onClick = {() => {
+                     dispatch(logoutAction());
+                   }}
                  >
                    <span className="header__signout">Sign out</span>
                  </Link>

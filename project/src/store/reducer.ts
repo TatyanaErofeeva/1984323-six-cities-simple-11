@@ -1,5 +1,5 @@
 import {createReducer} from '@reduxjs/toolkit';
-import { cityChange, offersListLoad, offerLoad, setOfferLoadingError, focusCardId, nearbyOffersLoad, sortCards, requireAuthorization, commentPost, setDatatLoadingStatus, setAuthStatus, commentsListLoad} from './action';
+import { cityChange, offersListLoad, offerLoad, setOfferLoadingError, focusCardId, setLoaderState, nearbyOffersLoad, sortCards, requireAuthorization, commentPost, setAuthStatus, commentsListLoad} from './action';
 import { Offers, Offer } from '../types/offer';
 import { Reviews, ReviewComment } from '../types/review';
 import { PayloadAction } from '@reduxjs/toolkit/dist/createAction';
@@ -14,11 +14,11 @@ type InitialState = {
   commentsList: Reviews;
   authorizationStatus: AuthorizationStatus;
   error: string | null;
-  isDataLoading: boolean;
   isAuthCompleted: boolean;
   nearbyOffers:Offers;
   commentPost?: ReviewComment;
   isOfferLoadedError:boolean;
+  loaders:{[key:string]: boolean};
 };
 
 const initialState: InitialState = {
@@ -29,10 +29,10 @@ const initialState: InitialState = {
   commentsList: [],
   authorizationStatus: AuthorizationStatus.Unknown,
   error: null,
-  isDataLoading: false,
   isAuthCompleted: false,
   nearbyOffers:[],
   isOfferLoadedError:false,
+  loaders:{},
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -42,9 +42,6 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(offersListLoad, (state, action: PayloadAction<Offers>) => {
       state.offersList = action.payload;
-    })
-    .addCase(setDatatLoadingStatus, (state, action: PayloadAction<boolean>) => {
-      state.isDataLoading = action.payload;
     })
     .addCase(offerLoad, (state, action: PayloadAction<Offer>) => {
       state.offer = action.payload;
@@ -69,6 +66,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(requireAuthorization, (state, action: PayloadAction<AuthorizationStatus>) => {
       state.authorizationStatus = action.payload;
+    })
+    .addCase(setLoaderState, (state, action: PayloadAction<[string, boolean]>) => {
+      state.loaders[action.payload[0]] = action.payload[1];
     })
     .addCase(setAuthStatus, (state, action: PayloadAction<boolean>) => {
       state.isAuthCompleted = action.payload;
