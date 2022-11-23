@@ -2,7 +2,7 @@ import MainHeader from '../components/main-header';
 import NotFound from './not-found';
 import { useParams } from 'react-router-dom';
 import CardsList from '../components/card-list';
-import { CardPage} from '../const';
+import { CardPage, LoaderName} from '../const';
 import {formatRatingToStars} from '../util';
 import {HostProStatus} from '../components/review-card';
 import {Map} from '../components/map';
@@ -31,7 +31,7 @@ function Property(): JSX.Element {
 
   const offer = useAppSelector((state) => state.offer);
   const nearbyOffers = useAppSelector((state) => state.nearbyOffers);
-  const isDataLoading = useAppSelector((state) => state.loaders['comments-load'] || state.loaders['offer-load']);
+  const isDataLoading = useAppSelector((state) => state.loaders[LoaderName.CommentsLoad] || state.loaders[LoaderName.OfferLoad]);
   const isOfferLoadedError = useAppSelector((state) => state.isOfferLoadedError);
 
   if (isDataLoading) {

@@ -2,11 +2,11 @@ import {AxiosError, AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state.js';
 import { Offers, Offer } from '../types/offer.js';
-import { ReviewComment, Reviews } from '../types/review.js';
+import { ReviewComment, Reviews, Review } from '../types/review.js';
 import { UserData } from '../types/user-data';
-import {offersListLoad, requireAuthorization, setLoaderState, setOfferLoadingError, redirectToAnotherRoute, offerLoad, commentsListLoad, nearbyOffersLoad} from './action';
+import {offersListLoad, requireAuthorization, setLoaderState, setOfferLoadingError, redirectToAnotherRoute, offerLoad, commentsListLoad, nearbyOffersLoad, commentPost} from './action';
 import {dropToken, saveToken} from '../services/token';
-import {APIRoute, AppRoute, AuthorizationStatus} from '../const';
+import {APIRoute, AppRoute, AuthorizationStatus, LoaderName} from '../const';
 import {AuthData} from '../types/auth-data';
 import { generatePath } from 'react-router';
 import { toast } from 'react-toastify';
@@ -19,10 +19,10 @@ export const fetchOffersListAction = createAsyncThunk<void, undefined, {
   'data/fetchOffersList',
   async (_arg, {dispatch, extra: api}) => {
 
-    dispatch(setLoaderState(['offers-load', true]));
+    dispatch(setLoaderState([LoaderName.OffersLoad, true]));
     const {data} = await api.get<Offers>(APIRoute.OffersList);
     dispatch(offersListLoad(data));
-    dispatch(setLoaderState(['offers-load', false]));
+    dispatch(setLoaderState([LoaderName.OffersLoad, false]));
   },
 );
 
@@ -35,7 +35,7 @@ export const fetchOfferAction = createAsyncThunk<void, number, {
   async (hotelId, {dispatch, extra: api}) => {
     try{
       dispatch(setOfferLoadingError(false));
-      dispatch(setLoaderState(['offer-load', true]));
+      dispatch(setLoaderState([LoaderName.OfferLoad, true]));
       const {data} = await api.get<Offer>(generatePath(APIRoute.Offer, {hotelId: String(hotelId)}));
       dispatch(offerLoad(data));
     } catch(error: unknown){
@@ -46,7 +46,7 @@ export const fetchOfferAction = createAsyncThunk<void, number, {
       }
     }
     finally{
-      dispatch(setLoaderState(['offer-load', false]));
+      dispatch(setLoaderState([LoaderName.OfferLoad, false]));
     }
   },
 );
@@ -58,10 +58,10 @@ export const fetchNearbyOffersAction = createAsyncThunk<void, number, {
 }>(
   'data/fetcNearByOffers',
   async (hotelId, {dispatch, extra: api}) => {
-    dispatch(setLoaderState(['nearbyOffers-load', true]));
+    dispatch(setLoaderState([LoaderName.NearbyOffersLoad, true]));
     const {data} = await api.get<Offers>(generatePath(APIRoute.NearBy, {hotelId: String(hotelId)}));
     dispatch(nearbyOffersLoad(data));
-    dispatch(setLoaderState(['nearbyOffers-load', false]));
+    dispatch(setLoaderState([LoaderName.NearbyOffersLoad, false]));
   },
 );
 
@@ -74,14 +74,14 @@ export const fetchCommentsListAction = createAsyncThunk<void, number, {
   'data/fetchCommentsList',
   async (hotelId, {dispatch, extra: api}) => {
     try{
-      dispatch(setLoaderState(['comments-load', true]));
+      dispatch(setLoaderState([LoaderName.CommentsLoad, true]));
       const {data} = await api.get<Reviews>(generatePath(APIRoute.Comments, {hotelId: String(hotelId)}));
       dispatch(commentsListLoad(data));
     } catch{
       toast.error('Ошибка загрузки коммента');
     }
     finally{
-      dispatch(setLoaderState(['comments-load', false]));
+      dispatch(setLoaderState([LoaderName.CommentsLoad, false]));
     }
 
   },
@@ -95,16 +95,17 @@ export const commentPostAction = createAsyncThunk<void, ReviewComment, {
   'data/commentPost',
   async ({hotelId, comment, rating, resetFormData}, {dispatch, extra: api}) => {
     try{
-      dispatch(setLoaderState(['comment-post', true]));
-      const {data} = await api.post<ReviewComment>(generatePath(APIRoute.Comments, {hotelId: String(hotelId)}),
+      dispatch(setLoaderState([LoaderName.CommentPost, true]));
+      const {data} = await api.post<Reviews>(generatePath(APIRoute.Comments, {hotelId: String(hotelId)}),
         {comment, rating});
-      dispatch(fetchCommentsListAction(hotelId));
+        console.log({data});
+      dispatch(commentPost(data));
       resetFormData();
     } catch {
       toast.error('Ошибка отправки коммента');
     }
     finally{
-      dispatch(setLoaderState(['comment-post', false]));
+      dispatch(setLoaderState([LoaderName.CommentPost, false]));
     }
   },
 );

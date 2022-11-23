@@ -89,6 +89,14 @@ export enum APIRoute {
   NearBy = '/hotels/:hotelId/nearby',
 }
 
+export enum LoaderName {
+  OffersLoad = 'offers-load',
+  OfferLoad = 'offer-load',
+  NearbyOffersLoad = 'nearbyOffers-load',
+  CommentsLoad = 'comments-load',
+  CommentPost ='comment-post',
+}
+
 export const TIMEOUT_SHOW_ERROR = 2000;
 
 export {URL_MARKER_CURRENT, URL_MARKER_DEFAULT};

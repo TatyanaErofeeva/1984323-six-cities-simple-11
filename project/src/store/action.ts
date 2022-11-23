@@ -1,6 +1,6 @@
 import {createAction} from '@reduxjs/toolkit';
 import { Offers, Offer } from '../types/offer';
-import { ReviewComment, Reviews } from '../types/review';
+import { Reviews} from '../types/review';
 import {AppRoute, AuthorizationStatus, OffersTypesOfSort} from '../const';
 
 export const cityChange = createAction('filter/cityChange', (value: string) => ({
@@ -21,7 +21,7 @@ export const commentsListLoad = createAction('load/commentsListLoad', (value: Re
   payload: value
 }));
 
-export const commentPost = createAction('comment/post', (value: ReviewComment) => ({
+export const commentPost = createAction('comment/post', (value: Reviews) => ({
   payload: value
 }));
 
