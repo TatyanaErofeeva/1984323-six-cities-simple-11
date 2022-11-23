@@ -2,9 +2,9 @@ import {AxiosError, AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state.js';
 import { Offers, Offer } from '../types/offer.js';
-import { ReviewComment, Reviews, Review } from '../types/review.js';
+import { ReviewComment, Reviews} from '../types/review.js';
 import { UserData } from '../types/user-data';
-import {offersListLoad, requireAuthorization, setLoaderState, setOfferLoadingError, redirectToAnotherRoute, offerLoad, commentsListLoad, nearbyOffersLoad, commentPost} from './action';
+import {offersListLoad, requireAuthorization, setLoaderState, setOfferLoadingError, redirectToAnotherRoute, offerLoad, commentsListLoad, nearbyOffersLoad} from './action';
 import {dropToken, saveToken} from '../services/token';
 import {APIRoute, AppRoute, AuthorizationStatus, LoaderName} from '../const';
 import {AuthData} from '../types/auth-data';
@@ -98,8 +98,7 @@ export const commentPostAction = createAsyncThunk<void, ReviewComment, {
       dispatch(setLoaderState([LoaderName.CommentPost, true]));
       const {data} = await api.post<Reviews>(generatePath(APIRoute.Comments, {hotelId: String(hotelId)}),
         {comment, rating});
-        console.log({data});
-      dispatch(commentPost(data));
+      dispatch(commentsListLoad(data));
       resetFormData();
     } catch {
       toast.error('Ошибка отправки коммента');

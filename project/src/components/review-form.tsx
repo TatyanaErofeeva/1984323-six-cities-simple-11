@@ -5,6 +5,8 @@ import { STARS_MAX } from '../util';
 import {commentPostAction} from '../store/api-actions';
 import { useAppDispatch} from '../hooks';
 import {useAppSelector} from '../hooks/index';
+import {MIN_SYMBOLS_COUNT, MAX_SYMBOLS_COUNT} from '../const';
+import {createAsyncThunk} from '@reduxjs/toolkit';
 
 type ReviewFormProps = {
   offerId: number;
@@ -16,10 +18,13 @@ function ReviewForm({offerId} : ReviewFormProps): JSX.Element{
   const dispatch = useAppDispatch();
   const resetFormData = () => setReviewForm({...reviewForm, rating: 0, review: '' });
 
-  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
+
+  const handleFormSubmit = () => async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    dispatch(commentPostAction({hotelId: offerId, comment: reviewForm.review, rating: reviewForm.rating, resetFormData: resetFormData }));
+    await dispatch(commentPostAction({hotelId: offerId, comment: reviewForm.review, rating: reviewForm.rating, resetFormData: resetFormData }));
+    resetFormData();
   };
+
   const handleFormChange = (evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const {name, value} = evt.target;
 
@@ -36,8 +41,7 @@ function ReviewForm({offerId} : ReviewFormProps): JSX.Element{
     }
     return ratingIndexes;
   };
-  const canSubmitForm = reviewForm.review && reviewForm.rating;
-
+  const isValid = reviewForm.rating && reviewForm.review.length >= MIN_SYMBOLS_COUNT && reviewForm.review.length <= MAX_SYMBOLS_COUNT;
   return (
     <form onSubmit={handleFormSubmit} className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
@@ -67,7 +71,7 @@ function ReviewForm({offerId} : ReviewFormProps): JSX.Element{
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled = {isCommentLoading || !canSubmitForm}
+          disabled = {!isValid}
         >
           Submit
         </button>

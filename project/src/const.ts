@@ -99,5 +99,8 @@ export enum LoaderName {
 
 export const TIMEOUT_SHOW_ERROR = 2000;
 
+export const MIN_SYMBOLS_COUNT = 50;
+export const MAX_SYMBOLS_COUNT = 300;
+
 export {URL_MARKER_CURRENT, URL_MARKER_DEFAULT};
 

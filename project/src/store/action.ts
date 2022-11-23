@@ -21,10 +21,6 @@ export const commentsListLoad = createAction('load/commentsListLoad', (value: Re
   payload: value
 }));
 
-export const commentPost = createAction('comment/post', (value: Reviews) => ({
-  payload: value
-}));
-
 export const nearbyOffersLoad = createAction('load/nearbyOffersLoad', (value: Offers) => ({
   payload: value
 }));
