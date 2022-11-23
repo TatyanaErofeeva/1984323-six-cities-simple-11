@@ -87,21 +87,22 @@ export const fetchCommentsListAction = createAsyncThunk<void, number, {
   },
 );
 
-export const commentPostAction = createAsyncThunk<void, ReviewComment, {
+export const commentPostAction = createAsyncThunk<boolean, ReviewComment, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'data/commentPost',
-  async ({hotelId, comment, rating, resetFormData}, {dispatch, extra: api}) => {
+  async ({hotelId, comment, rating}, {dispatch, extra: api}) => {
     try{
       dispatch(setLoaderState([LoaderName.CommentPost, true]));
       const {data} = await api.post<Reviews>(generatePath(APIRoute.Comments, {hotelId: String(hotelId)}),
         {comment, rating});
       dispatch(commentsListLoad(data));
-      resetFormData();
-    } catch {
+      return false;
+    } catch (error) {
       toast.error('Ошибка отправки коммента');
+      return true;
     }
     finally{
       dispatch(setLoaderState([LoaderName.CommentPost, false]));

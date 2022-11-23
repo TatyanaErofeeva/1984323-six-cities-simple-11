@@ -6,10 +6,15 @@ import {commentPostAction} from '../store/api-actions';
 import { useAppDispatch} from '../hooks';
 import {useAppSelector} from '../hooks/index';
 import {MIN_SYMBOLS_COUNT, MAX_SYMBOLS_COUNT} from '../const';
-import {createAsyncThunk} from '@reduxjs/toolkit';
+import {Spinner} from '../components/spinner';
+
 
 type ReviewFormProps = {
   offerId: number;
+}
+
+type CommentPostResult ={
+  payload: boolean;
 }
 
 function ReviewForm({offerId} : ReviewFormProps): JSX.Element{
@@ -19,10 +24,15 @@ function ReviewForm({offerId} : ReviewFormProps): JSX.Element{
   const resetFormData = () => setReviewForm({...reviewForm, rating: 0, review: '' });
 
 
-  const handleFormSubmit = () => async (evt: FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    await dispatch(commentPostAction({hotelId: offerId, comment: reviewForm.review, rating: reviewForm.rating, resetFormData: resetFormData }));
-    resetFormData();
+    dispatch(commentPostAction({hotelId: offerId, comment: reviewForm.review, rating: reviewForm.rating}))
+      .then((commentPostResult) => {
+        const {payload: isError} = commentPostResult as CommentPostResult;
+        if (!isError) {
+          resetFormData();
+        }
+      });
   };
 
   const handleFormChange = (evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -37,7 +47,7 @@ function ReviewForm({offerId} : ReviewFormProps): JSX.Element{
   const getRatingStars = () => {
     const ratingIndexes = [];
     for (let i = STARS_MAX; i > 0; i--) {
-      ratingIndexes.push(<ReviewFormRating key={i} index={i} onChange={handleFormChange}/>);
+      ratingIndexes.push(<ReviewFormRating rating = {Number(reviewForm.rating)} key={i} index={i} onChange={handleFormChange}/>);
     }
     return ratingIndexes;
   };
@@ -45,6 +55,11 @@ function ReviewForm({offerId} : ReviewFormProps): JSX.Element{
   return (
     <form onSubmit={handleFormSubmit} className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
+      {isCommentLoading && (
+        <div style = {{marginLeft: '200px', position: 'absolute'}}>
+          <Spinner/>
+        </div>
+      )}
       <div className="reviews__rating-form form__rating">
         {getRatingStars()}
       </div>
@@ -55,9 +70,11 @@ function ReviewForm({offerId} : ReviewFormProps): JSX.Element{
         placeholder="Tell how was your stay, what you like and what can be improved"
         onChange={handleFormChange}
         disabled = {isCommentLoading}
+        value = {reviewForm.review}
       >
       </textarea>
       <div className="reviews__button-wrapper">
+
         <p className="reviews__help">
           To submit review please make sure to set
           <span className="reviews__star">
@@ -71,7 +88,7 @@ function ReviewForm({offerId} : ReviewFormProps): JSX.Element{
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled = {!isValid}
+          disabled = {!isValid || isCommentLoading}
         >
           Submit
         </button>

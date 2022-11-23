@@ -16,7 +16,6 @@ export type ReviewComment = {
   hotelId: number;
   comment: string;
   rating: number;
-  resetFormData: () => void;
 };
 
 export type Reviews = Review[];
