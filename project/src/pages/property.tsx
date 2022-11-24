@@ -2,19 +2,16 @@ import MainHeader from '../components/main-header';
 import NotFound from './not-found';
 import { useParams } from 'react-router-dom';
 import CardsList from '../components/card-list';
-import { CardPage } from '../const';
-import { Offers } from '../types/offer';
-import { Reviews } from '../types/review';
+import { CardPage, LoaderName} from '../const';
 import {formatRatingToStars} from '../util';
-import { ReviewCard } from '../components/review-card';
 import {HostProStatus} from '../components/review-card';
-import {ReviewForm} from '../components/review-form';
 import {Map} from '../components/map';
-
-type PropertyPageProps = {
-  offers: Offers;
-  reviews: Reviews;
-};
+import {useAppSelector} from '../hooks/index';
+import {LoadingScreen} from '../pages/loading-screen';
+import { useEffect } from 'react';
+import { useAppDispatch } from '../hooks/index';
+import {fetchOfferAction, fetchCommentsListAction, fetchNearbyOffersAction} from '../store/api-actions';
+import { PropertyReview } from '../components/property-review';
 
 const setPropertyStatus = (): JSX.Element => (
   <div className="property__mark">
@@ -22,14 +19,31 @@ const setPropertyStatus = (): JSX.Element => (
   </div>
 );
 
-function Property({offers, reviews}: PropertyPageProps): JSX.Element {
+function Property(): JSX.Element {
+  const {id} = useParams();
+  const dispatch = useAppDispatch();
 
-  const params = useParams();
-  const offer = offers.find((item) => item.id === Number(params.id));
+  useEffect(() => {
+    dispatch(fetchOfferAction(Number(id)));
+    dispatch(fetchCommentsListAction(Number(id)));
+    dispatch(fetchNearbyOffersAction(Number(id)));
+  }, [dispatch, id]);
 
-  if (!offer) {
+  const offer = useAppSelector((state) => state.offer);
+  const nearbyOffers = useAppSelector((state) => state.nearbyOffers);
+  const isDataLoading = useAppSelector((state) => state.loaders[LoaderName.CommentsLoad] || state.loaders[LoaderName.OfferLoad]);
+  const isOfferLoadedError = useAppSelector((state) => state.isOfferLoadedError);
+
+  if (isDataLoading) {
+    return (
+      <LoadingScreen />
+    );
+  }
+
+  if (isOfferLoadedError || !offer) {
     return (<NotFound />);
   }
+
 
   const {
     bedrooms,
@@ -39,10 +53,10 @@ function Property({offers, reviews}: PropertyPageProps): JSX.Element {
     images,
     isPremium,
     maxAdults,
-    price: cost,
+    price,
     rating,
     title,
-    type: accommodation
+    type
   } = offer;
 
   return(
@@ -55,7 +69,7 @@ function Property({offers, reviews}: PropertyPageProps): JSX.Element {
               {
                 images.map((img) => (
                   <div key={img} className="property__image-wrapper">
-                    <img className="property__image" src={img} alt={accommodation} />
+                    <img className="property__image" src={img} alt={type} />
                   </div>
                 ))
               }
@@ -78,7 +92,7 @@ function Property({offers, reviews}: PropertyPageProps): JSX.Element {
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
-                  {accommodation}
+                  {type}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
                   {bedrooms} Bedrooms
@@ -88,7 +102,7 @@ function Property({offers, reviews}: PropertyPageProps): JSX.Element {
                 </li>
               </ul>
               <div className="property__price">
-                <b className="property__price-value">&euro;{cost}</b>
+                <b className="property__price-value">&euro;{price}</b>
                 <span className="property__price-text">&nbsp;night</span>
               </div>
               <div className="property__inside">
@@ -127,35 +141,20 @@ function Property({offers, reviews}: PropertyPageProps): JSX.Element {
                   </p>
                 </div>
               </div>
-              <section className="property__reviews reviews">
-                <h2
-                  className="reviews__title"
-                >
-                  Reviews &middot;
-                  <span
-                    className="reviews__amount"
-                  >
-                    {reviews.length}
-                  </span>
-                </h2>
-                <ul className="reviews__list">
-                  {reviews.map((item) => <ReviewCard key={item.id} review={item} />)}
-                </ul>
-                <ReviewForm />
-              </section>
+              <PropertyReview offerId={Number(id)}/>
             </div>
           </div>
           <Map
             classMap={CardPage.PropertyPageMap}
-            city={offers[0].city}
-            points={offers}
+            city={offer.city}
+            points={nearbyOffers}
             selectedPointId = {offer.id}
           />
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <CardsList offers = {offers} className={CardPage.PropertyPage}/>
+            <CardsList offers = {nearbyOffers} className={CardPage.PropertyPage}/>
           </section>
         </div>
       </main>

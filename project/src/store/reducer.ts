@@ -1,18 +1,23 @@
 import {createReducer} from '@reduxjs/toolkit';
-import { cityChange, offersListLoad, focusCardId, sortCards, requireAuthorization, setOffersListLoadingStatus, setAuthStatus} from './action';
-import { Offers } from '../types/offer';
+import { cityChange, offersListLoad, offerLoad, setOfferLoadingError, focusCardId, setLoaderState, nearbyOffersLoad, sortCards, requireAuthorization, setAuthStatus, commentsListLoad} from './action';
+import { Offers, Offer } from '../types/offer';
+import { Reviews} from '../types/review';
 import { PayloadAction } from '@reduxjs/toolkit/dist/createAction';
 import {AuthorizationStatus, OffersTypesOfSort} from '../const';
 
 type InitialState = {
   city: string;
   offersList: Offers;
+  offer?:Offer;
   selectedOfferId: number | undefined;
   sortType: OffersTypesOfSort;
+  commentsList: Reviews;
   authorizationStatus: AuthorizationStatus;
   error: string | null;
-  isOffersListLoaded: boolean;
   isAuthCompleted: boolean;
+  nearbyOffers:Offers;
+  isOfferLoadedError:boolean;
+  loaders:{[key:string]: boolean};
 };
 
 const initialState: InitialState = {
@@ -20,10 +25,13 @@ const initialState: InitialState = {
   offersList: [],
   selectedOfferId: undefined,
   sortType: OffersTypesOfSort.Popular,
+  commentsList: [],
   authorizationStatus: AuthorizationStatus.Unknown,
   error: null,
-  isOffersListLoaded: false,
   isAuthCompleted: false,
+  nearbyOffers:[],
+  isOfferLoadedError:false,
+  loaders:{},
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -34,8 +42,14 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(offersListLoad, (state, action: PayloadAction<Offers>) => {
       state.offersList = action.payload;
     })
-    .addCase(setOffersListLoadingStatus, (state, action: PayloadAction<boolean>) => {
-      state.isOffersListLoaded = action.payload;
+    .addCase(offerLoad, (state, action: PayloadAction<Offer>) => {
+      state.offer = action.payload;
+    })
+    .addCase(setOfferLoadingError, (state, action: PayloadAction<boolean>) => {
+      state.isOfferLoadedError = action.payload;
+    })
+    .addCase(nearbyOffersLoad, (state, action: PayloadAction<Offers>) => {
+      state.nearbyOffers = action.payload;
     })
     .addCase(focusCardId, (state, action: PayloadAction<number|undefined>) => {
       state.selectedOfferId = action.payload;
@@ -43,8 +57,14 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(sortCards, (state, action: PayloadAction<OffersTypesOfSort>) => {
       state.sortType = action.payload;
     })
+    .addCase(commentsListLoad, (state, action: PayloadAction<Reviews>) => {
+      state.commentsList = action.payload;
+    })
     .addCase(requireAuthorization, (state, action: PayloadAction<AuthorizationStatus>) => {
       state.authorizationStatus = action.payload;
+    })
+    .addCase(setLoaderState, (state, action: PayloadAction<[string, boolean]>) => {
+      state.loaders[action.payload[0]] = action.payload[1];
     })
     .addCase(setAuthStatus, (state, action: PayloadAction<boolean>) => {
       state.isAuthCompleted = action.payload;

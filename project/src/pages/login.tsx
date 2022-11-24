@@ -1,15 +1,23 @@
 import React from 'react';
 import LogoHeader from '../components/logo-header';
 import { Link } from 'react-router-dom';
-import { useAppDispatch} from '../hooks';
+import { useAppDispatch, useAppSelector} from '../hooks';
 import { AppRoute, CitiesList} from '../const';
-import { cityChange } from '../store/action';
-
+import { cityChange, redirectToAnotherRoute } from '../store/action';
+import { AuthorizationStatus } from '../const';
 import { loginAction } from '../store/api-actions';
-import { FormEvent, ChangeEvent } from 'react';
+import { FormEvent, ChangeEvent, useEffect } from 'react';
 
 function Login() {
   const dispatch = useAppDispatch();
+  const authorisationStatus = useAppSelector((state) => state.authorizationStatus);
+
+  useEffect(() => {
+    if(authorisationStatus === AuthorizationStatus.Auth){
+      dispatch(redirectToAnotherRoute(AppRoute.Root));
+    }
+  }, [dispatch, authorisationStatus]);
+
   const [emailField, setEmailField] = React.useState('');
   const [passwordField, setPasswordField] = React.useState('');
 
@@ -59,10 +67,6 @@ function Login() {
               />
             </div>
             <button
-              onClick={(evt) => {
-                evt.preventDefault();
-                dispatch(loginAction({email: emailField, password:passwordField}));
-              }}
               className="login__submit form__submit button"
               type="submit"
             >Sign in

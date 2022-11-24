@@ -12,4 +12,10 @@ export type Review = {
   };
 }
 
+export type ReviewComment = {
+  hotelId: number;
+  comment: string;
+  rating: number;
+};
+
 export type Reviews = Review[];

@@ -84,9 +84,23 @@ export enum APIRoute {
   OffersList = '/hotels',
   Login = '/login',
   Logout = '/logout',
+  Offer = '/hotels/:hotelId',
+  Comments ='/comments/:hotelId',
+  NearBy = '/hotels/:hotelId/nearby',
+}
+
+export enum LoaderName {
+  OffersLoad = 'offers-load',
+  OfferLoad = 'offer-load',
+  NearbyOffersLoad = 'nearbyOffers-load',
+  CommentsLoad = 'comments-load',
+  CommentPost ='comment-post',
 }
 
 export const TIMEOUT_SHOW_ERROR = 2000;
+
+export const MIN_SYMBOLS_COUNT = 50;
+export const MAX_SYMBOLS_COUNT = 300;
 
 export {URL_MARKER_CURRENT, URL_MARKER_DEFAULT};
 

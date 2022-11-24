@@ -20,7 +20,7 @@ function MainPage({offers}: MainPageProps): JSX.Element {
   const selectedSortType = useAppSelector((state) => state.sortType);
   const offersByFilteredCity = offers ? offers.filter((offer) => offer.city.name === currentCityName) : [];
   const dispatch = useAppDispatch();
-  const isOffersListLoaded = useAppSelector((state) => state.isOffersListLoaded);
+  const isOffersListLoaded = useAppSelector((state) => state.loaders['offers-load']);
 
   if (isOffersListLoaded) {
     return (
@@ -51,7 +51,7 @@ function MainPage({offers}: MainPageProps): JSX.Element {
               <SortCardsForm/>
               <CardsList offers = {sortedOffers} className={CardPage.MainPage}/>
             </section>
-            <div className="cities__right-section">
+            <div className="cities__right-section" style={{maxHeight:800}}>
               <Map
                 classMap={CardPage.MainPage}
                 city={cityName}
