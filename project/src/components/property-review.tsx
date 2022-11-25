@@ -2,14 +2,16 @@ import { AuthorizationStatus } from '../const';
 import {useAppSelector} from '../hooks/index';
 import { ReviewCard } from '../components/review-card';
 import {ReviewForm} from '../components/review-form';
+import { getAuthorizationStatus } from '../store/selectors';
+import {getComments} from '../store/selectors';
 
 type ReviewsSectionProps = {
   offerId: number;
 }
 
 function PropertyReview({offerId}: ReviewsSectionProps): JSX.Element{
-  const authorisationStatus = useAppSelector((state) => state.authorizationStatus);
-  const reviewsLoaded = useAppSelector((state) => state.commentsList);
+  const authorisationStatus = useAppSelector(getAuthorizationStatus);
+  const reviewsLoaded = useAppSelector(getComments);
   return(
     <section className="property__reviews reviews">
       <h2

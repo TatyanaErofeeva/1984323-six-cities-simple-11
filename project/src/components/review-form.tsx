@@ -5,7 +5,7 @@ import { STARS_MAX } from '../util';
 import {commentPostAction} from '../store/api-actions';
 import { useAppDispatch} from '../hooks';
 import {useAppSelector} from '../hooks/index';
-import {MIN_SYMBOLS_COUNT, MAX_SYMBOLS_COUNT} from '../const';
+import {MIN_SYMBOLS_COUNT, MAX_SYMBOLS_COUNT, LoaderName} from '../const';
 import {Spinner} from '../components/spinner';
 
 
@@ -18,7 +18,7 @@ type CommentPostResult ={
 }
 
 function ReviewForm({offerId} : ReviewFormProps): JSX.Element{
-  const isCommentLoading = useAppSelector((state) => state.loaders['comment-post']);
+  const isCommentLoading = useAppSelector((state) => state.loaders[LoaderName.CommentPost]);
   const [reviewForm, setReviewForm] = React.useState({rating: 0, review: '' });
   const dispatch = useAppDispatch();
   const resetFormData = () => setReviewForm({...reviewForm, rating: 0, review: '' });

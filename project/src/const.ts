@@ -102,5 +102,17 @@ export const TIMEOUT_SHOW_ERROR = 2000;
 export const MIN_SYMBOLS_COUNT = 50;
 export const MAX_SYMBOLS_COUNT = 300;
 
+export enum NameSpace {
+  DataOffers = 'OFFERS',
+  DataOffer = 'OFFER',
+  DataComments = 'REVIEWS',
+  DataNearbyOffers = 'NEARBY_OFFERS',
+  Data = 'DATA',
+  App = 'APP',
+  User = 'USER',
+}
+
+export const DEFAULT_CITY = 'Paris';
+
 export {URL_MARKER_CURRENT, URL_MARKER_DEFAULT};
 

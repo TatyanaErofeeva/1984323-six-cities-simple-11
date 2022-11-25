@@ -2,7 +2,7 @@ import MainHeader from '../components/main-header';
 import NotFound from './not-found';
 import { useParams } from 'react-router-dom';
 import CardsList from '../components/card-list';
-import { CardPage, LoaderName} from '../const';
+import { CardPage} from '../const';
 import {formatRatingToStars} from '../util';
 import {HostProStatus} from '../components/review-card';
 import {Map} from '../components/map';
@@ -12,6 +12,7 @@ import { useEffect } from 'react';
 import { useAppDispatch } from '../hooks/index';
 import {fetchOfferAction, fetchCommentsListAction, fetchNearbyOffersAction} from '../store/api-actions';
 import { PropertyReview } from '../components/property-review';
+import { getNearbyOffers, getOffer, getComentsLoadingStatus, getOfferLoadingStatus } from '../store/selectors';
 
 const setPropertyStatus = (): JSX.Element => (
   <div className="property__mark">
@@ -29,9 +30,9 @@ function Property(): JSX.Element {
     dispatch(fetchNearbyOffersAction(Number(id)));
   }, [dispatch, id]);
 
-  const offer = useAppSelector((state) => state.offer);
-  const nearbyOffers = useAppSelector((state) => state.nearbyOffers);
-  const isDataLoading = useAppSelector((state) => state.loaders[LoaderName.CommentsLoad] || state.loaders[LoaderName.OfferLoad]);
+  const offer = useAppSelector(getOffer);
+  const nearbyOffers = useAppSelector(getNearbyOffers);
+  const isDataLoading = useAppSelector(getComentsLoadingStatus || getOfferLoadingStatus);
   const isOfferLoadedError = useAppSelector((state) => state.isOfferLoadedError);
 
   if (isDataLoading) {
