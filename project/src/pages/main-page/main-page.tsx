@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/index';
 import SortCardsForm from '../../components/sort-form';
 import {LoadingScreen} from '../../pages/loading-screen';
 import {getOffersLoadingStatus, getCity, getSelectedOfferId, selectCurrentOffers} from '../../store/selectors';
+import {MainEmpty} from '../../components/main-empty';
 
 type MainPageProps = {
   offers: Offers;
@@ -48,13 +49,18 @@ function MainPage({offers}: MainPageProps): JSX.Element {
               <SortCardsForm/>
               <CardsList offers = {currentOffers} className={CardPage.MainPage}/>
             </section>
-            <div className="cities__right-section" style={{maxHeight:800}}>
-              <Map
-                classMap={CardPage.MainPage}
-                city={currentCityName}
-                points={currentOffers}
-                selectedPointId = {selectedOfferId}
-              />
+            <div className="cities">
+              { currentOffers.length === 0
+                ? <MainEmpty/>
+                :
+                <div className="cities__right-section" style={{maxHeight:800}}>
+                  <Map
+                    classMap={CardPage.MainPage}
+                    city={currentCityName}
+                    points={currentOffers}
+                    selectedPointId = {selectedOfferId}
+                  />
+                </div> }
             </div>
           </div>
         </div>

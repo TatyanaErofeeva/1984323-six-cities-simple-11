@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React from 'react';
 import {FormEvent, ChangeEvent} from 'react';
 import { ReviewFormRating} from './review-form-rating';
 import { STARS_MAX } from '../util';
@@ -7,33 +7,36 @@ import { useAppDispatch} from '../hooks';
 import {useAppSelector} from '../hooks/index';
 import {MIN_SYMBOLS_COUNT, MAX_SYMBOLS_COUNT} from '../const';
 import {Spinner} from '../components/spinner';
-import {getComentPostStatus, getCommentPostError} from '../store/selectors';
+import {getComentPostStatus} from '../store/selectors';
 
 
 type ReviewFormProps = {
   offerId: number;
 }
 
+type CommentPostResult ={
+  payload?: [];
+}
+
 function ReviewForm({offerId} : ReviewFormProps): JSX.Element{
   const isCommentLoading = useAppSelector(getComentPostStatus);
-  const isCommentPostError = useAppSelector(getCommentPostError);
 
   const [reviewForm, setReviewForm] = React.useState({rating: 0, review: '' });
   const dispatch = useAppDispatch();
-  const resetFormData = useCallback(
-    () => setReviewForm({...reviewForm, rating: 0, review: '' }), []
-  );
+  const resetFormData = () => setReviewForm({...reviewForm, rating: 0, review: '' });
 
 
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    dispatch(commentPostAction({hotelId: offerId, comment: reviewForm.review, rating: reviewForm.rating}));
+    dispatch(commentPostAction({hotelId: offerId, comment: reviewForm.review, rating: reviewForm.rating}))
+      .then((data) => {
+        const {payload} = data as CommentPostResult;
+        if (payload) {
+          resetFormData();
+        }
+      });
   };
-  useEffect(() => {
-    if(!isCommentLoading && !isCommentPostError) {
-      resetFormData();
-    }
-  }, [isCommentLoading, isCommentPostError, resetFormData]);
+
 
   const handleFormChange = (evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const {name, value} = evt.target;
@@ -52,6 +55,8 @@ function ReviewForm({offerId} : ReviewFormProps): JSX.Element{
     return ratingIndexes;
   };
   const isValid = reviewForm.rating && reviewForm.review.length >= MIN_SYMBOLS_COUNT && reviewForm.review.length <= MAX_SYMBOLS_COUNT;
+  //const isValid = true;
+
   return (
     <form onSubmit={handleFormSubmit} className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
