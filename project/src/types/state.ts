@@ -34,6 +34,6 @@ export type UserProcess = {
 
 export type AppProcess = {
   city: string;
-  selectedOfferId: number | undefined;
+  focusCardId: number | undefined;
   sortType: string;
 };

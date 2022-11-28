@@ -4,7 +4,7 @@ import { AppProcess } from '../types/state';
 
 const initialState: AppProcess = {
   city: DEFAULT_CITY,
-  selectedOfferId: undefined,
+  focusCardId: undefined,
   sortType: OffersTypesOfSort.Popular,
 };
 
@@ -16,7 +16,7 @@ export const appProcess = createSlice({
       state.city = action.payload;
     },
     focusCardId: (state, action) => {
-      state.selectedOfferId = action.payload;
+      state.focusCardId = action.payload;
     },
     sortCards: (state, action) => {
       state.sortType = action.payload;
@@ -24,4 +24,4 @@ export const appProcess = createSlice({
   },
 });
 
-export const {cityChange, focusCardId: setSelectedOfferId, sortCards: setSortType} = appProcess.actions;
+export const {cityChange, focusCardId, sortCards} = appProcess.actions;
