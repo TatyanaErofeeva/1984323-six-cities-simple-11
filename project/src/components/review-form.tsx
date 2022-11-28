@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useCallback } from 'react';
 import {FormEvent, ChangeEvent} from 'react';
 import { ReviewFormRating} from './review-form-rating';
 import { STARS_MAX } from '../util';
@@ -7,34 +7,33 @@ import { useAppDispatch} from '../hooks';
 import {useAppSelector} from '../hooks/index';
 import {MIN_SYMBOLS_COUNT, MAX_SYMBOLS_COUNT} from '../const';
 import {Spinner} from '../components/spinner';
-import {getComentPostStatus} from '../store/selectors';
+import {getComentPostStatus, getCommentPostError} from '../store/selectors';
 
 
 type ReviewFormProps = {
   offerId: number;
 }
 
-type CommentPostResult ={
-  payload: boolean;
-}
-
 function ReviewForm({offerId} : ReviewFormProps): JSX.Element{
   const isCommentLoading = useAppSelector(getComentPostStatus);
+  const isCommentPostError = useAppSelector(getCommentPostError);
+
   const [reviewForm, setReviewForm] = React.useState({rating: 0, review: '' });
   const dispatch = useAppDispatch();
-  const resetFormData = () => setReviewForm({...reviewForm, rating: 0, review: '' });
+  const resetFormData = useCallback(
+    () => setReviewForm({...reviewForm, rating: 0, review: '' }), []
+  );
 
 
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    dispatch(commentPostAction({hotelId: offerId, comment: reviewForm.review, rating: reviewForm.rating}))
-      .then((commentPostResult) => {
-        const {payload: isError} = commentPostResult as CommentPostResult;
-        if (!isError) {
-          resetFormData();
-        }
-      });
+    dispatch(commentPostAction({hotelId: offerId, comment: reviewForm.review, rating: reviewForm.rating}));
   };
+  useEffect(() => {
+    if(!isCommentLoading && !isCommentPostError) {
+      resetFormData();
+    }
+  }, [isCommentLoading, isCommentPostError, resetFormData]);
 
   const handleFormChange = (evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const {name, value} = evt.target;

@@ -15,6 +15,7 @@ export type DataOffers = {
 export type DataComments = {
   commentsList: Reviews;
   loaders: {[key:string]: boolean};
+  isCommentPostError:boolean;
 };
 
 export type DataOffer = {
@@ -30,6 +31,7 @@ export type DataNearbyOffers = {
 
 export type UserProcess = {
   authorizationStatus: AuthorizationStatus;
+  email: string | undefined;
 };
 
 export type AppProcess = {

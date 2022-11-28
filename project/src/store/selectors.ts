@@ -19,6 +19,7 @@ export const getOfferLoadingError = (state: State): boolean => state[NameSpace.D
 export const getComments = (state: State): Reviews | [] => state[NameSpace.DataComments].commentsList;
 export const getComentsLoadingStatus = (state: State): boolean => state[NameSpace.DataComments].loaders[LoaderName.CommentsLoad];
 export const getComentPostStatus = (state: State): boolean => state[NameSpace.DataComments].loaders[LoaderName.CommentPost];
+export const getCommentPostError = (state: State): boolean => state[NameSpace.DataComments].isCommentPostError;
 
 export const getCity = (state: State): OfferCity => {
   const currentCityName = state[NameSpace.App].city;
@@ -38,3 +39,4 @@ export const selectCurrentOffers = createSelector(
 );
 
 export const getAuthorizationStatus = (state: State) => state[NameSpace.User].authorizationStatus;
+export const getUserEmail = (state: State) => state[NameSpace.User].email;

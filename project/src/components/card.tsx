@@ -5,7 +5,7 @@ import { generatePath } from 'react-router';
 import { AppRoute } from '../const';
 import {formatRatingToStars, ucFirstLetter} from '../util';
 import { useAppDispatch} from '../hooks/index';
-import { focusCardId } from '../store/action';
+import {focusCardId} from '../store/app-process';
 type CardProps = {
   offer: Offer;
 }

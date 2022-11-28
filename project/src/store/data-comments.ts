@@ -6,6 +6,7 @@ import { DataComments } from '../types/state';
 const initialState: DataComments = {
   commentsList: [],
   loaders: {},
+  isCommentPostError:false,
 };
 
 export const dataComments = createSlice({
@@ -27,13 +28,17 @@ export const dataComments = createSlice({
 
       .addCase(commentPostAction.pending, (state) => {
         state.loaders[LoaderName.CommentPost] = true;
+        state.isCommentPostError = false;
+
       })
       .addCase(commentPostAction.fulfilled, (state, action) => {
         state.commentsList = action.payload;
         state.loaders[LoaderName.CommentPost] = false;
+        state.isCommentPostError = false;
       })
       .addCase(commentPostAction.rejected, (state) => {
         state.loaders[LoaderName.CommentPost] = false;
+        state.isCommentPostError = true;
       });
   }
 });
