@@ -3,9 +3,11 @@ import {AuthorizationStatus, AppRoute } from '../const';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../hooks/index';
 import { logoutAction } from '../store/api-actions';
+import { getAuthorizationStatus, getUserEmail } from '../store/selectors';
 
 function MainHeader(){
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const authStatus = useAppSelector(getAuthorizationStatus);
+  const userEmail = useAppSelector(getUserEmail);
   const isAuthed = (authStatus === AuthorizationStatus.Auth);
   const dispatch = useAppDispatch();
 
@@ -31,7 +33,7 @@ function MainHeader(){
                   <a className="header__nav-link header__nav-link--profile" href="/#">
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                    <span className="header__user-name user__name">{userEmail}</span>
                   </a>
                   :
                   <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Login}>

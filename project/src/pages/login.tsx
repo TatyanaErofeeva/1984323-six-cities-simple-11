@@ -3,14 +3,16 @@ import LogoHeader from '../components/logo-header';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector} from '../hooks';
 import { AppRoute, CitiesList} from '../const';
-import { cityChange, redirectToAnotherRoute } from '../store/action';
+import {redirectToAnotherRoute } from '../store/action';
 import { AuthorizationStatus } from '../const';
 import { loginAction } from '../store/api-actions';
 import { FormEvent, ChangeEvent, useEffect } from 'react';
+import { getAuthorizationStatus } from '../store/selectors';
+import { cityChange } from '../store/app-process';
 
 function Login() {
   const dispatch = useAppDispatch();
-  const authorisationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorisationStatus = useAppSelector(getAuthorizationStatus);
 
   useEffect(() => {
     if(authorisationStatus === AuthorizationStatus.Auth){

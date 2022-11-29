@@ -1,13 +1,14 @@
 import { SortCards } from './sort-list';
 import { useState } from 'react';
 import {useAppSelector, useAppDispatch} from '../hooks/index';
-import { sortCards } from '../store/action';
 import { OffersTypesOfSort } from '../const';
+import { getSortType } from '../store/selectors';
+import { sortCards } from '../store/app-process';
 
 
 function SortCardsForm(){
   const [isSortingOpened, setSortingOpened] = useState(false);
-  const selectedSortType = useAppSelector((state) => state.sortType);
+  const selectedSortType = useAppSelector(getSortType);
   const selectingStartedByClick = () => {
     setSortingOpened(!isSortingOpened);
   };

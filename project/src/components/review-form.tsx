@@ -7,6 +7,7 @@ import { useAppDispatch} from '../hooks';
 import {useAppSelector} from '../hooks/index';
 import {MIN_SYMBOLS_COUNT, MAX_SYMBOLS_COUNT} from '../const';
 import {Spinner} from '../components/spinner';
+import {getComentPostStatus} from '../store/selectors';
 
 
 type ReviewFormProps = {
@@ -14,11 +15,12 @@ type ReviewFormProps = {
 }
 
 type CommentPostResult ={
-  payload: boolean;
+  payload?: [];
 }
 
 function ReviewForm({offerId} : ReviewFormProps): JSX.Element{
-  const isCommentLoading = useAppSelector((state) => state.loaders['comment-post']);
+  const isCommentLoading = useAppSelector(getComentPostStatus);
+
   const [reviewForm, setReviewForm] = React.useState({rating: 0, review: '' });
   const dispatch = useAppDispatch();
   const resetFormData = () => setReviewForm({...reviewForm, rating: 0, review: '' });
@@ -27,13 +29,14 @@ function ReviewForm({offerId} : ReviewFormProps): JSX.Element{
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     dispatch(commentPostAction({hotelId: offerId, comment: reviewForm.review, rating: reviewForm.rating}))
-      .then((commentPostResult) => {
-        const {payload: isError} = commentPostResult as CommentPostResult;
-        if (!isError) {
+      .then((data) => {
+        const {payload} = data as CommentPostResult;
+        if (payload) {
           resetFormData();
         }
       });
   };
+
 
   const handleFormChange = (evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const {name, value} = evt.target;
@@ -52,6 +55,8 @@ function ReviewForm({offerId} : ReviewFormProps): JSX.Element{
     return ratingIndexes;
   };
   const isValid = reviewForm.rating && reviewForm.review.length >= MIN_SYMBOLS_COUNT && reviewForm.review.length <= MAX_SYMBOLS_COUNT;
+  //const isValid = true;
+
   return (
     <form onSubmit={handleFormSubmit} className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>

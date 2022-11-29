@@ -7,9 +7,10 @@ import NotFound from '../../pages/not-found';
 import {useAppSelector} from '../../hooks';
 import HistoryRouter from '../history-route';
 import browserHistory from '../../browser-history';
+import { getOffers } from '../../store/selectors';
 
 function App(): JSX.Element {
-  const offers = useAppSelector((state) => state.offersList);
+  const offers = useAppSelector(getOffers);
 
   return (
     <HistoryRouter history={browserHistory}>
