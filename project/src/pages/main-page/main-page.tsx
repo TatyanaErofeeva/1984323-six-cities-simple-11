@@ -34,35 +34,33 @@ function MainPage({offers}: MainPageProps): JSX.Element {
   return (
     <>
       < MainHeader/>
-      <main className="page__main page__main--index">
+      <main className={`page__main page__main--index${currentOffers.length > 0 ? '' : ' page__main--index-empty'}`}>
         <h1 className="visually-hidden">Cities</h1>
         <CityList selectedCity={currentCityName.name} onCityChange={onCityChageHandler}/>
-        <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b
-                className="places__found"
-              >
-                {currentOffers.length} places to stay in {currentCityName.name}
-              </b>
-              <SortCardsForm/>
-              <CardsList offers = {currentOffers} className={CardPage.MainPage}/>
-            </section>
-            <div className="cities">
-              { currentOffers.length === 0
-                ? <MainEmpty/>
-                :
-                <div className="cities__right-section" style={{maxHeight:800}}>
-                  <Map
-                    classMap={CardPage.MainPage}
-                    city={currentCityName}
-                    points={currentOffers}
-                    selectedPointId = {selectedOfferId}
-                  />
-                </div> }
-            </div>
-          </div>
+        <div className="cities" style={{height: '700px'}}>
+          { currentOffers.length && isOffersListLoaded
+            ? <MainEmpty cityName= {currentCityName.name}/>
+            :
+            <div className="cities__places-container container">
+              <section className="cities__places places">
+                <h2 className="visually-hidden">Places</h2>
+                <b
+                  className="places__found"
+                >
+                  {currentOffers.length} places to stay in {currentCityName.name}
+                </b>
+                <SortCardsForm/>
+                <CardsList offers = {currentOffers} className={CardPage.MainPage}/>
+              </section>
+              <div className="cities__right-section" style={{maxHeight:800}}>
+                <Map
+                  classMap={CardPage.MainPage}
+                  city={currentCityName}
+                  points={currentOffers}
+                  selectedPointId = {selectedOfferId}
+                />
+              </div>
+            </div> }
         </div>
       </main>
     </>

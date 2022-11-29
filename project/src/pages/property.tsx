@@ -12,7 +12,7 @@ import { useEffect } from 'react';
 import { useAppDispatch } from '../hooks/index';
 import {fetchOfferAction, fetchCommentsListAction, fetchNearbyOffersAction} from '../store/api-actions';
 import { PropertyReview } from '../components/property-review';
-import { getNearbyOffers, getOffer, getComentsLoadingStatus, getOfferLoadingStatus, getOfferLoadingError } from '../store/selectors';
+import { getNearbyOffers, getOffer, getOfferLoadingError, getCommentsOfferLoading} from '../store/selectors';
 
 const setPropertyStatus = (): JSX.Element => (
   <div className="property__mark">
@@ -32,7 +32,7 @@ function Property(): JSX.Element {
 
   const offer = useAppSelector(getOffer);
   const nearbyOffers = useAppSelector(getNearbyOffers);
-  const isDataLoading = useAppSelector(getComentsLoadingStatus || getOfferLoadingStatus);
+  const isDataLoading = useAppSelector(getCommentsOfferLoading);
   const isOfferLoadedError = useAppSelector(getOfferLoadingError);
 
   if (isDataLoading) {
