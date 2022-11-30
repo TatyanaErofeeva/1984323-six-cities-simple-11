@@ -38,9 +38,7 @@ function MainPage({offers}: MainPageProps): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <CityList selectedCity={currentCityName.name} onCityChange={onCityChageHandler}/>
         <div className="cities" style={{height: '700px'}}>
-          { currentOffers.length && isOffersListLoaded
-            ? <MainEmpty cityName= {currentCityName.name}/>
-            :
+          {currentOffers.length ?
             <div className="cities__places-container container">
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
@@ -60,7 +58,8 @@ function MainPage({offers}: MainPageProps): JSX.Element {
                   selectedPointId = {selectedOfferId}
                 />
               </div>
-            </div> }
+            </div>
+            : <MainEmpty cityName= {currentCityName.name}/>}
         </div>
       </main>
     </>
