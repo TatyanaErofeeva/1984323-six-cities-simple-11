@@ -39,3 +39,4 @@ export const selectCurrentOffers = createSelector(
 
 export const getAuthorizationStatus = (state: State) => state[NameSpace.User].authorizationStatus;
 export const getUserEmail = (state: State) => state[NameSpace.User].email;
+export const getCommentsOfferLoading = (state: State): boolean => state[NameSpace.DataComments].loaders[LoaderName.CommentsLoad] || state[NameSpace.DataOffer].loaders[LoaderName.OfferLoad];

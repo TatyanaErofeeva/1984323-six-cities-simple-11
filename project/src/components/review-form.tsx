@@ -55,7 +55,6 @@ function ReviewForm({offerId} : ReviewFormProps): JSX.Element{
     return ratingIndexes;
   };
   const isValid = reviewForm.rating && reviewForm.review.length >= MIN_SYMBOLS_COUNT && reviewForm.review.length <= MAX_SYMBOLS_COUNT;
-  //const isValid = true;
 
   return (
     <form onSubmit={handleFormSubmit} className="reviews__form form" action="#" method="post">
