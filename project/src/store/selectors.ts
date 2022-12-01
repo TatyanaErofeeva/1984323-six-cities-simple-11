@@ -3,7 +3,7 @@ import {State} from '../types/state';
 import { Offers, Offer, OfferCity } from '../types/offer';
 import { Reviews } from '../types/review';
 import { createSelector } from 'reselect';
-import { getSortedCards } from '../util';
+import { getSortedCards } from '../utils/util';
 
 export const getOffers = (state: State): Offers | [] => state[NameSpace.DataOffers].offersList;
 export const getOffersLoadingStatus = (state: State): boolean => state[NameSpace.DataOffers].loaders[LoaderName.OffersLoad];

@@ -1,7 +1,7 @@
-import { NameSpace, LoaderName } from '../const';
+import { NameSpace, LoaderName } from '../../const';
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchNearbyOffersAction} from './api-actions';
-import { DataNearbyOffers } from '../types/state';
+import { fetchNearbyOffersAction} from '../api-actions/api-actions';
+import { DataNearbyOffers } from '../../types/state';
 
 const initialState: DataNearbyOffers = {
   nearbyOffers:[],

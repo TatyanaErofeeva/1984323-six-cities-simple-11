@@ -1,7 +1,7 @@
-import { NameSpace, LoaderName } from '../const';
+import { NameSpace, LoaderName } from '../../const';
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchOfferAction} from './api-actions';
-import { DataOffer } from '../types/state';
+import { fetchOfferAction} from '../api-actions/api-actions';
+import { DataOffer } from '../../types/state';
 
 const initialState: DataOffer = {
   isOfferLoadedError:false,

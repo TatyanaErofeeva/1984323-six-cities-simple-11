@@ -1,7 +1,7 @@
-import { NameSpace, LoaderName } from '../const';
+import { NameSpace, LoaderName } from '../../const';
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchCommentsListAction, commentPostAction } from './api-actions';
-import { DataComments } from '../types/state';
+import { fetchCommentsListAction, commentPostAction } from '../api-actions/api-actions';
+import { DataComments } from '../../types/state';
 
 const initialState: DataComments = {
   commentsList: [],

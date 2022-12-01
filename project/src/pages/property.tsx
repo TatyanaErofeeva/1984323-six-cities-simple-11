@@ -3,14 +3,14 @@ import NotFound from './not-found';
 import { useParams } from 'react-router-dom';
 import CardsList from '../components/card-list';
 import { CardPage} from '../const';
-import {formatRatingToStars} from '../util';
+import {formatRatingToStars} from '../utils/util';
 import {HostProStatus} from '../components/review-card';
 import {Map} from '../components/map';
 import {useAppSelector} from '../hooks/index';
 import {LoadingScreen} from '../pages/loading-screen';
 import { useEffect } from 'react';
 import { useAppDispatch } from '../hooks/index';
-import {fetchOfferAction, fetchCommentsListAction, fetchNearbyOffersAction} from '../store/api-actions';
+import {fetchOfferAction, fetchCommentsListAction, fetchNearbyOffersAction} from '../store/api-actions/api-actions';
 import { PropertyReview } from '../components/property-review';
 import { getNearbyOffers, getOffer, getOfferLoadingError, getCommentsOfferLoading} from '../store/selectors';
 

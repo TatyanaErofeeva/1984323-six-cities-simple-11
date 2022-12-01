@@ -3,7 +3,7 @@ import MainHeader from '../../components/main-header';
 import { Offers } from '../../types/offer';
 import {Map} from '../../components/map';
 import {CardPage} from '../../const';
-import { cityChange } from '../../store/app-process';
+import { cityChange } from '../../store/app-process/app-process';
 import CityList from '../../components/city-list';
 import { useAppDispatch, useAppSelector } from '../../hooks/index';
 import SortCardsForm from '../../components/sort-form';
