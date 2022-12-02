@@ -2,7 +2,7 @@ import { dataOffer } from './data-offer';
 import { fetchOfferAction} from '../api-actions/api-actions';
 import { makeFakeOffer } from '../../utils/mocks';
 
-const fakeOffer = makeFakeOffer();
+export const fakeOffer = makeFakeOffer();
 
 describe('Reducer: dataOffer', () => {
   it('without additional parameters should return initial state', () => {

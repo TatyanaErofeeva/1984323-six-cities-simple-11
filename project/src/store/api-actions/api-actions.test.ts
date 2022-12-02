@@ -8,10 +8,12 @@ import {State} from '../../types/state';
 import {checkAuthAction,fetchOffersListAction,fetchOfferAction,fetchNearbyOffersAction, fetchCommentsListAction, commentPostAction, loginAction, logoutAction} from './api-actions';
 import {redirectToAnotherRoute} from '../action';
 import {AuthData} from '../../types/auth-data';
-import {fakeEmail, fakePassword, fakeOffersList, makeFakeOffer} from '../../utils/mocks';
+import {fakeEmail, fakePassword, fakeOffersList, makeFakeOffer, makeFakeComment, fakeReviewList} from '../../utils/mocks';
 import {datatype} from 'faker';
 
 describe('Async actions', () => {
+  const fakeUser: AuthData = {email: fakeEmail, password: fakePassword};
+  const fakeHotelId = datatype.number();
   const api = createAPI();
   const mockAPI = new MockAdapter(api);
   const middlewares = [thunk.withExtraArgument(api)];
@@ -41,7 +43,7 @@ describe('Async actions', () => {
   });
 
   it('should dispatch RequriedAuthorization and RedirectToRoute when POST /login', async () => {
-    const fakeUser: AuthData = {email: fakeEmail, password: fakePassword};
+
 
     mockAPI
       .onPost(APIRoute.Login)
@@ -106,9 +108,8 @@ describe('Async actions', () => {
 
   it('should dispatch Load_Offer when GET /hotels/:hotelId', async () => {
     const fakeOffer = makeFakeOffer();
-    const fakeHotelId = datatype.number();
     mockAPI
-      .onGet(APIRoute.Offer)
+      .onGet(`/hotels/${fakeHotelId}`)
       .reply(200, fakeOffer);
 
     const store = mockStore();
@@ -120,11 +121,59 @@ describe('Async actions', () => {
     expect(actions).toEqual([
       fetchOfferAction.pending.type,
       fetchOfferAction.fulfilled.type,
-      fetchOfferAction.rejected.type,
     ]);
   });
 
 
+  it('should dispatch Nearby_Offers when GET /hotels/:hotelId/nearby', async () => {
+    mockAPI
+      .onGet(`/hotels/${fakeHotelId}/nearby`)
+      .reply(200, fakeOffersList);
+
+    const store = mockStore();
+
+    await store.dispatch(fetchNearbyOffersAction(fakeHotelId));
+
+    const actions = store.getActions().map(({type}) => type);
+
+    expect(actions).toEqual([
+      fetchNearbyOffersAction.pending.type,
+      fetchNearbyOffersAction.fulfilled.type,
+    ]);
+  });
+
+  it('should dispatch Load_Comments when GET /comments/:hotelId', async () => {
+    mockAPI
+      .onGet(`/comments/${fakeHotelId}`)
+      .reply(200, fakeReviewList);
+
+    const store = mockStore();
+
+    await store.dispatch(fetchCommentsListAction(fakeHotelId));
+
+    const actions = store.getActions().map(({type}) => type);
+
+    expect(actions).toEqual([
+      fetchCommentsListAction.pending.type,
+      fetchCommentsListAction.fulfilled.type,
+    ]);
+  });
+
+  it('should dispatch Add_Comments when POST /comments/:hotelId', async () => {
+    const fakeComment = makeFakeComment();
+    mockAPI
+      .onPost(`/comments/${fakeComment.hotelId}`)
+      .reply(200, []);
+
+    const store = mockStore();
+    await store.dispatch(commentPostAction(fakeComment));
+    const actions = store.getActions().map(({type}) => type);
+
+    expect(actions).toEqual([
+      commentPostAction.pending.type,
+      commentPostAction.fulfilled.type,
+    ]);
+  });
 
 
 });

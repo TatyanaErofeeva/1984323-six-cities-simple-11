@@ -1,10 +1,10 @@
 import MainHeader from '../components/main-header';
-import NotFound from './not-found';
+import NotFound from './not-found/not-found';
 import { useParams } from 'react-router-dom';
 import CardsList from '../components/card-list';
 import { CardPage} from '../const';
 import {formatRatingToStars} from '../utils/util';
-import {HostProStatus} from '../components/review-card';
+import {HostProStatus} from '../components/review-card/review-card';
 import {Map} from '../components/map';
 import {useAppSelector} from '../hooks/index';
 import {LoadingScreen} from '../pages/loading-screen';

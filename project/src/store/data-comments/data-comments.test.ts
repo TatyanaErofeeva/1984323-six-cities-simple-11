@@ -2,7 +2,7 @@ import { dataComments } from './data-comments';
 import { fetchCommentsListAction, commentPostAction} from '../api-actions/api-actions';
 import {fakeReviewList, makeFakeComment} from '../../utils/mocks';
 
-const fakeComment = makeFakeComment();
+export const fakeComment = makeFakeComment();
 
 describe('Reducer: dataComments', () => {
   it('without additional parameters should return initial state', () => {

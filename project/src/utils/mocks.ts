@@ -39,7 +39,7 @@ export const makeFakeOffer = (): Offer => ({
   },
 });
 
-export const fakeOffersList = new Array(10).map(() => makeFakeOffer());
+export const fakeOffersList = new Array(10).fill(null).map(() => makeFakeOffer());
 
 export const makeFakeReview = ():Review => ({
   hotelId: datatype.number(),

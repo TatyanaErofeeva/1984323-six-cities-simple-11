@@ -2,7 +2,7 @@ import { appProcess, cityChange, focusCardId, sortCards } from './app-process';
 import { DEFAULT_CITY, OffersTypesOfSort } from '../../const';
 import {makeFakeAppProcessData} from '../../utils/mocks';
 
-const fakeAppData = makeFakeAppProcessData();
+export const fakeAppData = makeFakeAppProcessData();
 
 describe('Reducer: appProcess', () => {
   it('without additional parameters should return initial state', () => {
