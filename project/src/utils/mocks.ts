@@ -4,6 +4,8 @@ import { Review, ReviewComment } from '../types/review';
 
 export const fakeEmail = internet.email();
 export const fakePassword = internet.password();
+const cities = ['Paris', 'Cologne','Brussels','Amsterdam', 'Hamburg', 'Dusselorf'];
+export const getRandomCity = () => cities[Math.floor(Math.random() * cities.length)];
 
 export const makeFakeOffer = (): Offer => ({
   id: datatype.number(),
@@ -16,9 +18,9 @@ export const makeFakeOffer = (): Offer => ({
       longitude: datatype.number(),
       zoom: datatype.number(),
     },
-    name:address.direction(),
+    name:getRandomCity(),
   },
-  title:random.word(),
+  title:address.country(),
   description: company.catchPhraseDescriptor(),
   type:random.word(),
   images: company.suffixes(),
@@ -40,6 +42,7 @@ export const makeFakeOffer = (): Offer => ({
 });
 
 export const fakeOffersList = new Array(10).fill(null).map(() => makeFakeOffer());
+
 
 export const makeFakeReview = ():Review => ({
   hotelId: datatype.number(),

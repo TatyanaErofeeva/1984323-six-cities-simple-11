@@ -8,11 +8,11 @@ import App from './app';
 import { fakeEmail, fakeOffersList, fakeReviewList, makeFakeComment} from '../../utils/mocks';
 import { fakeOffer } from '../../store/data-offer/data-offer.test';
 import { fakeAppData } from '../../store/app-process/app-process.test';
-import { datatype} from 'faker';
+import thunk from 'redux-thunk';
 
-
-const mockStore = configureMockStore();
 const fakeComment = makeFakeComment();
+const middlewares = [thunk];
+const mockStore = configureMockStore(middlewares);
 
 const store = mockStore({
   USER: {authorizationStatus: AuthorizationStatus.Auth, email: fakeEmail},
@@ -39,7 +39,7 @@ describe('Application Routing', () => {
 
     render(fakeApp);
 
-    expect(screen.getByText(`${fakeOffersList.length} places to stay in `)).toBeInTheDocument();
+    expect(screen.getByText(new RegExp('places to stay in', 'i'))).toBeInTheDocument();
   });
 
   it('should render "AuthScreen" when user navigate to "/login"', () => {
@@ -56,7 +56,8 @@ describe('Application Routing', () => {
 
     render(fakeApp);
 
-    expect(screen.getByText(new RegExp(`Reviews ${datatype.number()}`, 'i'))).toBeInTheDocument();
+
+    expect(screen.getByText(`${fakeOffer.title}`)).toBeInTheDocument();
   });
 
   it('should render "NotFoundScreen" when user navigate to non-existent route', () => {
