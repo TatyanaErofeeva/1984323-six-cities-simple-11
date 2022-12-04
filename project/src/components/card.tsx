@@ -21,6 +21,11 @@ function CardInList ({offer, className,onMouseOver, onMouseLeave}: CardProps): J
       onMouseLeave={() => dispatch(focusCardId())}
       className={`${className ?? ''}__card place-card`}
     >
+      {offer.isPremium ?
+        <div className="place-card__mark">
+          <span>Premium</span>
+        </div>
+        : ''}
       <div className={`${className ?? ''}__image-wrapper place-card__image-wrapper`}>
         <Link to={`/offer/${offer.id}`}>
           <img
@@ -47,7 +52,7 @@ function CardInList ({offer, className,onMouseOver, onMouseLeave}: CardProps): J
           <div className="place-card__stars rating__stars">
             <span
               style={{
-                width: formatRatingToStars(offer.rating)
+                width: formatRatingToStars(Math.round(offer.rating))
               }}
             >
             </span>
@@ -60,7 +65,7 @@ function CardInList ({offer, className,onMouseOver, onMouseLeave}: CardProps): J
           <Link
             to={generatePath(AppRoute.Property, {id: String(offer.id)})}
           >
-            {offer.description}
+            {offer.title}
           </Link>
         </h2>
         <p className="place-card__type">

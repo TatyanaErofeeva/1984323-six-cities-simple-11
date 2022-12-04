@@ -113,5 +113,12 @@ export enum NameSpace {
 
 export const DEFAULT_CITY = 'Paris';
 
+export const ACCOMODATION = {
+  house: 'House',
+  apartment: 'Apartment',
+  room: 'Private Room',
+  hotel: 'Hotel'
+};
+
 export {URL_MARKER_CURRENT, URL_MARKER_DEFAULT};
 

@@ -2,7 +2,7 @@ import MainHeader from '../components/main-header';
 import NotFound from './not-found/not-found';
 import { useParams } from 'react-router-dom';
 import CardsList from '../components/card-list';
-import { CardPage} from '../const';
+import { CardPage, ACCOMODATION} from '../const';
 import {formatRatingToStars} from '../utils/util';
 import {HostProStatus} from '../components/review-card/review-card';
 import {Map} from '../components/map';
@@ -93,7 +93,7 @@ function Property(): JSX.Element {
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
-                  {type}
+                  {ACCOMODATION[type as keyof typeof ACCOMODATION]}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
                   {bedrooms} Bedrooms
@@ -148,7 +148,7 @@ function Property(): JSX.Element {
           <Map
             classMap={CardPage.PropertyPageMap}
             city={offer.city}
-            points={nearbyOffers}
+            points={[...nearbyOffers, offer]}
             selectedPointId = {offer.id}
           />
         </section>

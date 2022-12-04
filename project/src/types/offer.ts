@@ -1,3 +1,4 @@
+
 type LocationCoordinates = {
     latitude: number;
     longitude: number;
@@ -18,7 +19,7 @@ export type Offer = {
   city: OfferCity;
   title:string;
   description: string;
-  type:string;
+  type: string;
   images: string[];
   rating: number;
   bedrooms: number;
