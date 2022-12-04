@@ -2,16 +2,14 @@ import CardsList from '../../components/card-list';
 import MainHeader from '../../components/main-header';
 import { Offers } from '../../types/offer';
 import {Map} from '../../components/map';
-import {CardPage, AuthorizationStatus, AppRoute} from '../../const';
+import {CardPage} from '../../const';
 import { cityChange } from '../../store/app-process/app-process';
 import CityList from '../../components/city-list';
 import { useAppDispatch, useAppSelector } from '../../hooks/index';
 import SortCardsForm from '../../components/sort-form';
 import {LoadingScreen} from '../../pages/loading-screen';
-import {getOffersLoadingStatus, getCity, getSelectedOfferId, selectCurrentOffers, getAuthorizationStatus} from '../../store/selectors';
+import {getOffersLoadingStatus, getCity, getSelectedOfferId, selectCurrentOffers} from '../../store/selectors';
 import {MainEmpty} from '../../components/main-empty/main-empty';
-import { useEffect } from 'react';
-import {redirectToAnotherRoute } from '../../store/action';
 
 type MainPageProps = {
   offers: Offers;
@@ -23,13 +21,6 @@ function MainPage({offers}: MainPageProps): JSX.Element {
   const dispatch = useAppDispatch();
   const isOffersListLoaded = useAppSelector(getOffersLoadingStatus);
   const currentOffers = useAppSelector(selectCurrentOffers);
-  const authorisationStatus = useAppSelector(getAuthorizationStatus);
-
-  useEffect(() => {
-    if(authorisationStatus !== AuthorizationStatus.Auth){
-      dispatch(redirectToAnotherRoute(AppRoute.Login));
-    }
-  }, [dispatch, authorisationStatus]);
 
   if (isOffersListLoaded) {
     return (

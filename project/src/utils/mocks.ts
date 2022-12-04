@@ -4,7 +4,7 @@ import { Review, ReviewComment } from '../types/review';
 
 export const fakeEmail = internet.email();
 export const fakePassword = internet.password();
-const cities = ['Paris', 'Cologne','Brussels','Amsterdam', 'Hamburg', 'Dusselorf'];
+const cities = ['Paris', 'Cologne','Brussels','Amsterdam', 'Hamburg', 'Dusseldorf'];
 export const getRandomCity = () => cities[Math.floor(Math.random() * cities.length)];
 
 export const makeFakeOffer = (): Offer => ({

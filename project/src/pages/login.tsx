@@ -1,13 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector} from '../hooks';
-import { AppRoute, CitiesList} from '../const';
+import { AppRoute} from '../const';
 import {redirectToAnotherRoute } from '../store/action';
 import { AuthorizationStatus } from '../const';
 import { loginAction } from '../store/api-actions/api-actions';
 import { FormEvent, ChangeEvent, useEffect } from 'react';
 import { getAuthorizationStatus } from '../store/selectors';
 import { cityChange } from '../store/app-process/app-process';
+import { getRandomCity } from '../utils/mocks';
 
 function Login() {
   const dispatch = useAppDispatch();
@@ -18,6 +19,8 @@ function Login() {
       dispatch(redirectToAnotherRoute(AppRoute.Root));
     }
   }, [dispatch, authorisationStatus]);
+
+  const city = getRandomCity();
 
   const [emailField, setEmailField] = React.useState('');
   const [passwordField, setPasswordField] = React.useState('');
@@ -35,6 +38,7 @@ function Login() {
     setPasswordField(evt.target.value);
   };
 
+  const isValid = passwordField.match(/^(?=.*\d)(?=.*[a-zA-Z]).{2,20}$/);
 
   return (
 
@@ -86,6 +90,7 @@ function Login() {
               <button
                 className="login__submit form__submit button"
                 type="submit"
+                disabled = {!isValid}
               >Sign in
               </button>
             </form>
@@ -95,9 +100,9 @@ function Login() {
               <Link
                 className="locations__item-link"
                 to={AppRoute.Root}
-                onClick={() => dispatch(cityChange(CitiesList[0].name))}
+                onClick={() => dispatch(cityChange(city))}
               >
-                <span>{CitiesList[0].name}</span>
+                <span>{city}</span>
               </Link>
             </div>
           </section>
