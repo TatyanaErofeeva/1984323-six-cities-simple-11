@@ -3,9 +3,9 @@ import { Offer } from '../types/offer';
 import { Link } from 'react-router-dom';
 import { generatePath } from 'react-router';
 import { AppRoute } from '../const';
-import {formatRatingToStars, ucFirstLetter} from '../util';
+import {formatRatingToStars, ucFirstLetter} from '../utils/util';
 import { useAppDispatch} from '../hooks/index';
-import {focusCardId} from '../store/app-process';
+import {focusCardId} from '../store/app-process/app-process';
 type CardProps = {
   offer: Offer;
 }

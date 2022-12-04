@@ -107,7 +107,6 @@ export enum NameSpace {
   DataOffer = 'OFFER',
   DataComments = 'REVIEWS',
   DataNearbyOffers = 'NEARBY_OFFERS',
-  Data = 'DATA',
   App = 'APP',
   User = 'USER',
 }

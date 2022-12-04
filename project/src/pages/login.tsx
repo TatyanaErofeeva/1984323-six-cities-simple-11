@@ -4,10 +4,10 @@ import { useAppDispatch, useAppSelector} from '../hooks';
 import { AppRoute, CitiesList} from '../const';
 import {redirectToAnotherRoute } from '../store/action';
 import { AuthorizationStatus } from '../const';
-import { loginAction } from '../store/api-actions';
+import { loginAction } from '../store/api-actions/api-actions';
 import { FormEvent, ChangeEvent, useEffect } from 'react';
 import { getAuthorizationStatus } from '../store/selectors';
-import { cityChange } from '../store/app-process';
+import { cityChange } from '../store/app-process/app-process';
 
 function Login() {
   const dispatch = useAppDispatch();

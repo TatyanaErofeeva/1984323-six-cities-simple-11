@@ -1,5 +1,5 @@
-import { Offers } from './types/offer';
-import { OffersTypesOfSort } from './const';
+import { Offers } from '../types/offer';
+import { OffersTypesOfSort } from '../const';
 const STARS_MAX = 5;
 
 const formatRatingToStars = (rating: number): string => `${Math.round((rating * 100 / STARS_MAX))}%`;

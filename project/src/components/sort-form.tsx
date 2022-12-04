@@ -3,7 +3,7 @@ import { useState } from 'react';
 import {useAppSelector, useAppDispatch} from '../hooks/index';
 import { OffersTypesOfSort } from '../const';
 import { getSortType } from '../store/selectors';
-import { sortCards } from '../store/app-process';
+import { sortCards } from '../store/app-process/app-process';
 
 
 function SortCardsForm(){

@@ -1,11 +1,11 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
-import { dataOffer } from '../data-offer';
-import { dataOffers } from '../data-offers';
-import { dataComments } from '../data-comments';
-import { dataNearbyOffers } from '../data-nearbyoffers';
-import { appProcess } from '../app-process';
-import { userProcess } from '../user-process';
+import { dataOffer } from '../data-offer/data-offer';
+import { dataOffers } from '../data-offers/data-offers';
+import { dataComments } from '../data-comments/data-comments';
+import { dataNearbyOffers } from '../data-nearbyoffers/data-nearbyoffers';
+import { appProcess } from '../app-process/app-process';
+import { userProcess } from '../user-process/user-process';
 
 
 export const rootReducer = combineReducers({

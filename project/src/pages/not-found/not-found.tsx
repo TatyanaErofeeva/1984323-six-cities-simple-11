@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../const';
+import { AppRoute } from '../../const';
 function NotFound(){
   return(
     <div style={{marginLeft: '500px', marginTop: '200px'}}>
