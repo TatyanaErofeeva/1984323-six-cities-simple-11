@@ -1,4 +1,4 @@
-import { SortCards } from './sort-list';
+import { SortCards } from './sort-list/sort-list';
 import { useState } from 'react';
 import {useAppSelector, useAppDispatch} from '../hooks/index';
 import { OffersTypesOfSort } from '../const';

@@ -1,13 +1,13 @@
 import MainHeader from '../components/main-header';
 import NotFound from './not-found/not-found';
 import { useParams } from 'react-router-dom';
-import CardsList from '../components/card-list';
+import CardsList from '../components/card-list/card-list';
 import { CardPage, ACCOMODATION} from '../const';
 import {formatRatingToStars} from '../utils/util';
 import {HostProStatus} from '../components/review-card/review-card';
 import {Map} from '../components/map';
 import {useAppSelector} from '../hooks/index';
-import {LoadingScreen} from '../pages/loading-screen';
+import {LoadingScreen} from './loading-screen/loading-screen';
 import { useEffect } from 'react';
 import { useAppDispatch } from '../hooks/index';
 import {fetchOfferAction, fetchCommentsListAction, fetchNearbyOffersAction} from '../store/api-actions/api-actions';

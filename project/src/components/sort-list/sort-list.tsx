@@ -1,4 +1,4 @@
-import { OffersTypesOfSort } from '../const';
+import { OffersTypesOfSort } from '../../const';
 import cn from 'classnames';
 
 type SortCardsProps = {

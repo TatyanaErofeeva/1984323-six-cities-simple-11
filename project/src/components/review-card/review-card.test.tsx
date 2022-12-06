@@ -1,7 +1,7 @@
 import {render, screen} from '@testing-library/react';
 import { ReviewCard } from './review-card';
 import {createMemoryHistory} from 'history';
-import HistoryRouter from '../../components/history-route';
+import HistoryRouter from '../history-router';
 import {makeFakeReview} from '../../utils/mocks';
 
 const fakeReview = makeFakeReview();

@@ -5,7 +5,7 @@ import {Provider} from 'react-redux';
 import {ToastContainer} from 'react-toastify';
 import { store } from './store';
 import {fetchOffersListAction, checkAuthAction} from './store/api-actions/api-actions';
-import HistoryRouter from './components/history-route';
+import HistoryRouter from './components/history-router';
 import browserHistory from './browser-history';
 import 'react-toastify/dist/ReactToastify.css';
 store.dispatch(checkAuthAction());

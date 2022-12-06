@@ -1,12 +1,12 @@
 import React from 'react';
 import {FormEvent, ChangeEvent} from 'react';
-import { ReviewFormRating} from './review-form-rating';
+import { ReviewFormRating} from './review-form-rating/review-form-rating';
 import { STARS_MAX } from '../utils/util';
 import {commentPostAction} from '../store/api-actions/api-actions';
 import { useAppDispatch} from '../hooks';
 import {useAppSelector} from '../hooks/index';
 import {MIN_SYMBOLS_COUNT, MAX_SYMBOLS_COUNT} from '../const';
-import {Spinner} from '../components/spinner';
+import {Spinner} from '../components/spinner/spinner';
 import {getComentPostStatus} from '../store/selectors';
 
 

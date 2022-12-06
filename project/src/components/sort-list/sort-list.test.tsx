@@ -1,22 +1,21 @@
 import {render, screen} from '@testing-library/react';
+import { SortCards } from './sort-list';
 import {createMemoryHistory} from 'history';
 import HistoryRouter from '../history-router';
-import { MainEmpty } from './main-empty';
+import { OffersTypesOfSort } from '../../const';
 
-describe('Component: MainEmpty', () => {
+describe('Component: SortCards', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();
 
     render(
       <HistoryRouter history={history}>
-        <MainEmpty cityName = {'Paris'}/>
+        <SortCards selectedSortType = {OffersTypesOfSort.Popular} onChangeSortType = {() => OffersTypesOfSort.Popular} isSortingOpened/>
       </HistoryRouter>,
     );
 
-    const headerElement = screen.getByText('No places to stay available');
-    const linkElement = screen.getByText('We could not find any property available at the moment in Paris');
+    const headerElement = screen.getByText(`${OffersTypesOfSort.Popular}`);
 
     expect(headerElement).toBeInTheDocument();
-    expect(linkElement).toBeInTheDocument();
   });
 });

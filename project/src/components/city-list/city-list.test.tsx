@@ -1,22 +1,23 @@
 import {render, screen} from '@testing-library/react';
+import CityList from './city-list';
 import {createMemoryHistory} from 'history';
 import HistoryRouter from '../history-router';
-import { MainEmpty } from './main-empty';
+import {getRandomCity} from '../../utils/mocks';
 
-describe('Component: MainEmpty', () => {
+const fakeCity = getRandomCity();
+
+describe('Component: CityList', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();
 
     render(
       <HistoryRouter history={history}>
-        <MainEmpty cityName = {'Paris'}/>
+        <CityList selectedCity = {fakeCity} onCityChange = {() => ''}/>
       </HistoryRouter>,
     );
 
-    const headerElement = screen.getByText('No places to stay available');
-    const linkElement = screen.getByText('We could not find any property available at the moment in Paris');
+    const headerElement = screen.getByText(`${fakeCity}`);
 
     expect(headerElement).toBeInTheDocument();
-    expect(linkElement).toBeInTheDocument();
   });
 });
