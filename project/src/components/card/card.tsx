@@ -1,11 +1,11 @@
 import { HTMLAttributes } from 'react';
-import { Offer } from '../types/offer';
+import { Offer } from '../../types/offer';
 import { Link } from 'react-router-dom';
 import { generatePath } from 'react-router';
-import { AppRoute } from '../const';
-import {formatRatingToStars, ucFirstLetter} from '../utils/util';
-import { useAppDispatch} from '../hooks/index';
-import {focusCardId} from '../store/app-process/app-process';
+import { AppRoute } from '../../const';
+import {formatRatingToStars, ucFirstLetter} from '../../utils/util';
+import { useAppDispatch} from '../../hooks/index';
+import {focusCardId} from '../../store/app-process/app-process';
 type CardProps = {
   offer: Offer;
 }
@@ -27,7 +27,10 @@ function CardInList ({offer, className,onMouseOver, onMouseLeave}: CardProps): J
         </div>
         : ''}
       <div className={`${className ?? ''}__image-wrapper place-card__image-wrapper`}>
-        <Link to={`/offer/${offer.id}`}>
+        <Link
+          to={`/offer/${offer.id}`}
+          data-testid="link-card__image"
+        >
           <img
             className="place-card__image"
             src={offer.previewImage}
@@ -64,6 +67,7 @@ function CardInList ({offer, className,onMouseOver, onMouseLeave}: CardProps): J
         <h2 className="place-card__name">
           <Link
             to={generatePath(AppRoute.Property, {id: String(offer.id)})}
+            data-testid="link-card__title"
           >
             {offer.title}
           </Link>

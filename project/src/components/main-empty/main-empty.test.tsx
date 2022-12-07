@@ -1,6 +1,6 @@
 import {render, screen} from '@testing-library/react';
 import {createMemoryHistory} from 'history';
-import HistoryRouter from '../../components/history-route';
+import HistoryRouter from '../history-router';
 import { MainEmpty } from './main-empty';
 
 describe('Component: MainEmpty', () => {

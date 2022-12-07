@@ -1,4 +1,4 @@
-import { AppRoute, CitiesList } from '../const';
+import { AppRoute, CitiesList } from '../../const';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 

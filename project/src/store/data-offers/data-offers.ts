@@ -20,7 +20,11 @@ export const dataOffers = createSlice({
       .addCase(fetchOffersListAction.fulfilled, (state, action) => {
         state.offersList = action.payload;
         state.loaders[LoaderName.OffersLoad] = false;
+      })
+      .addCase(fetchOffersListAction.rejected, (state) => {
+        state.loaders[LoaderName.OffersLoad] = false;
       });
+
   }
 });
 

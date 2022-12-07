@@ -1,9 +1,9 @@
 import {useRef, useEffect} from 'react';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../const';
-import useMap from '../hooks/use-map';
-import { OfferCity, Offers } from '../types/offer';
+import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../const';
+import useMap from '../../hooks/use-map';
+import { OfferCity, Offers } from '../../types/offer';
 
 
 const defaultCustomIcon = leaflet.icon({
@@ -56,7 +56,7 @@ function Map({classMap, city, points, selectedPointId}: MapProps): JSX.Element {
   }, [map, points, selectedPointId, city]);
 
   return (
-    <section className={`${classMap}__map map`} ref={mapRef}></section>
+    <section className={`${classMap}__map map`} ref={mapRef} data-testid="leaflet-map"></section>
   );
 }
 

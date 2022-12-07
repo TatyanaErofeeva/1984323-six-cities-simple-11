@@ -1,5 +1,5 @@
 import {address, internet, datatype, company, image, random} from 'faker';
-import { Offer } from '../types/offer';
+import { Offer, OfferCity } from '../types/offer';
 import { Review, ReviewComment } from '../types/review';
 
 export const fakeEmail = internet.email();
@@ -58,7 +58,7 @@ export const makeFakeReview = ():Review => ({
   }
 });
 
-export const fakeReviewList = new Array(10).map(() => makeFakeReview());
+export const fakeReviewList = new Array(10).fill(null).map(() => makeFakeReview());
 
 
 export const makeFakeComment = ():ReviewComment => ({
@@ -73,4 +73,13 @@ export const makeFakeAppProcessData = () => ({
   sortType: random.word(),
 });
 
+
+export const makeFakeOfferCity = (): OfferCity => ({
+  location: {
+    latitude: datatype.number(),
+    longitude: datatype.number(),
+    zoom: datatype.number(),
+  },
+  name:getRandomCity(),
+});
 

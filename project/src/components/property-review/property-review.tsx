@@ -1,9 +1,9 @@
-import { AuthorizationStatus } from '../const';
-import {useAppSelector} from '../hooks/index';
-import { ReviewCard } from './review-card/review-card';
-import {ReviewForm} from '../components/review-form';
-import { getAuthorizationStatus } from '../store/selectors';
-import {getComments} from '../store/selectors';
+import { AuthorizationStatus } from '../../const';
+import {useAppSelector} from '../../hooks/index';
+import { ReviewCard } from '../review-card/review-card';
+import {ReviewForm} from '../review-form/review-form';
+import { getAuthorizationStatus } from '../../store/selectors';
+import {getComments} from '../../store/selectors';
 
 type ReviewsSectionProps = {
   offerId: number;

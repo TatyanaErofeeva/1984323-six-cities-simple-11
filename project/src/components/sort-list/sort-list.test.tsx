@@ -1,24 +1,21 @@
 import {render, screen} from '@testing-library/react';
-import { ReviewCard } from './review-card';
+import { SortCards } from './sort-list';
 import {createMemoryHistory} from 'history';
 import HistoryRouter from '../history-router';
-import {makeFakeReview} from '../../utils/mocks';
+import { OffersTypesOfSort } from '../../const';
 
-const fakeReview = makeFakeReview();
-
-describe('Component: ReviewCard', () => {
+describe('Component: SortCards', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();
 
     render(
       <HistoryRouter history={history}>
-        <ReviewCard review = {fakeReview}/>
+        <SortCards selectedSortType = {OffersTypesOfSort.Popular} onChangeSortType = {() => OffersTypesOfSort.Popular} isSortingOpened/>
       </HistoryRouter>,
     );
 
-    const headerElement = screen.getByText(`${fakeReview.comment}`);
+    const headerElement = screen.getByText(`${OffersTypesOfSort.Popular}`);
 
     expect(headerElement).toBeInTheDocument();
   });
 });
-
