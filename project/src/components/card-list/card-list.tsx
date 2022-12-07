@@ -1,5 +1,5 @@
 import React, { HTMLAttributes } from 'react';
-import CardInList from '../card';
+import CardInList from '../card/card';
 import { Offers } from '../../types/offer';
 import {CardPage} from '../../const';
 import cn from 'classnames';

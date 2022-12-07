@@ -1,12 +1,12 @@
 import CardsList from '../../components/card-list/card-list';
-import MainHeader from '../../components/main-header';
+import MainHeader from '../../components/main-header/main-header';
 import { Offers } from '../../types/offer';
-import {Map} from '../../components/map';
+import {Map} from '../../components/map/map';
 import {CardPage} from '../../const';
 import { cityChange } from '../../store/app-process/app-process';
 import CityList from '../../components/city-list/city-list';
 import { useAppDispatch, useAppSelector } from '../../hooks/index';
-import SortCardsForm from '../../components/sort-form';
+import SortCardsForm from '../../components/sort-form/sort-form';
 import {LoadingScreen} from '../loading-screen/loading-screen';
 import {getOffersLoadingStatus, getCity, getSelectedOfferId, selectCurrentOffers} from '../../store/selectors';
 import {MainEmpty} from '../../components/main-empty/main-empty';

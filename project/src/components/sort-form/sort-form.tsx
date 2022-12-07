@@ -1,9 +1,9 @@
-import { SortCards } from './sort-list/sort-list';
+import { SortCards } from '../sort-list/sort-list';
 import { useState } from 'react';
-import {useAppSelector, useAppDispatch} from '../hooks/index';
-import { OffersTypesOfSort } from '../const';
-import { getSortType } from '../store/selectors';
-import { sortCards } from '../store/app-process/app-process';
+import {useAppSelector, useAppDispatch} from '../../hooks/index';
+import { OffersTypesOfSort } from '../../const';
+import { getSortType } from '../../store/selectors';
+import { sortCards } from '../../store/app-process/app-process';
 
 
 function SortCardsForm(){

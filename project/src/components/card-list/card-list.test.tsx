@@ -1,4 +1,4 @@
-import {render, screen} from '@testing-library/react';
+import {render} from '@testing-library/react';
 import CardsList from './card-list';
 import {createMemoryHistory} from 'history';
 import HistoryRouter from '../history-router';

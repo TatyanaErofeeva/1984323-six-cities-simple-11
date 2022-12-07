@@ -6,7 +6,7 @@ import {makeFakeReview} from '../../utils/mocks';
 
 const fakeReview = makeFakeReview();
 
-describe('Component: NotFound', () => {
+describe('Component: ReviewCard', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();
 
